@@ -1,0 +1,52 @@
+.not-found-container {
+  height: 1024px;
+  background-color: #fafafa;
+  position: relative;
+
+  .not-found-bg {
+    height: 174px;
+    width: 100dvw;
+    background: var(--primary-black);
+    position: relative;
+
+    .not-found-bg-svg {
+      position: absolute;
+      right: 0;
+      height: 100%;
+    }
+  }
+  .not-found-content-container {
+    position: absolute;
+    background-color: #ffffff;
+    max-width: 1320px;
+    margin: auto;
+    height: 842px;
+    top: 115px;
+    left: 0;
+    right: 0;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 87px;
+    justify-content: center;
+    align-items: center;
+
+    .not-found-action-button {
+      background-color: var(--main);
+      border-radius: 8px;
+      display: flex;
+      padding: 15px 253px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      color: #1f1f1f;
+
+      font-family: "Plus Jakarta Sans";
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 164%; 
+      text-transform: capitalize;
+    }
+  }
+}
