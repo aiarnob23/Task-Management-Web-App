@@ -1,0 +1,18 @@
+.dashboard-container{
+    background-color: #FAFAFA;
+    min-height: 100dvh; 
+    position: relative;
+
+    .taskList-div{
+        background-color: #FFFFFF;
+        height:500px;
+        top: 240px;
+        left: 0;
+        right: 0;
+        position: absolute;
+        max-width: 1320px;
+        margin: auto;
+        border-radius: 15px;
+        padding: 30px;
+    }
+}

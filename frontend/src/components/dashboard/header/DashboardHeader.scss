@@ -1,0 +1,80 @@
+.dashboard-header-container {
+  height: 306px;
+  background-color: var(--primary-black);
+  padding-top: 30px;
+
+  header {
+    max-width: 1320px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 52px;
+    align-items: center;
+
+    .logo {
+      color: #fff;
+      font-family: Poppins;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 132%;
+      letter-spacing: -0.48px;
+    }
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      color: #fff;
+
+      .nav-menu-item {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 164%;
+        text-transform: capitalize;
+
+        &:hover {
+          color: var(--main);
+        }
+
+        &.active {
+          color: var(--main);
+        }
+      }
+    }
+    .user-icon {
+      h3 {
+        color: #fff;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 164%;
+        text-transform: capitalize;
+      }
+    }
+  }
+  .welcome-message {
+    max-width: 1320px;
+    margin: auto;
+    p {
+      color: var(--main);
+      font-family: Poppins;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 132%;
+      letter-spacing: -0.48px;
+      margin-bottom: 4px;
+    }
+    h3 {
+      color: #fff;
+      font-family: Poppins;
+      font-size: 40px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 132%; 
+      letter-spacing: -0.8px;
+    }
+  }
+}

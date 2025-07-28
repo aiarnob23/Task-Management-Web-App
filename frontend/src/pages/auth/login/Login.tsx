@@ -12,7 +12,6 @@ const Login = () => {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors, isSubmitting },
   } = useForm<LoginInputs>();
 
@@ -29,6 +28,9 @@ const Login = () => {
           src="/svg/auth/login/roadmap-design.svg"
           alt=""
         />
+        <div className="circle1"><img src="/svg/background/circle1.svg" alt="" /></div>
+        <div className="circle2"><img src="/svg/background/circle2.svg" alt="" /></div>
+        <div className="circle3"><img src="/svg/background/circle3.svg" alt="" /></div>
       </div>
       {/* -------right div-------- */}
       <div className="login-content-div">
