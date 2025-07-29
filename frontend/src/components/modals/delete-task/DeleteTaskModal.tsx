@@ -1,5 +1,6 @@
 import React from "react";
-import './CongratulationsModal.scss';
+import "./DeleteTaskModal.scss";
+import { deleteTask } from "../../../services/taskServices";
 
 interface DeleteTaskModalProps {
   isOpen: boolean;
@@ -14,17 +15,24 @@ const DeleteTaskModal: React.FC<DeleteTaskModalProps> = ({
   if (!isOpen) {
     return null;
   }
-
+ 
+  // handle task deletion
+  const handleTaskDelete = async()=>{
+     await deleteTask("034ifj3409r8u4389rj9");
+  }
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <div className="banner"><img src="/svg/modal/dlt-alert.svg" alt="" /></div>
-      </div>
-      <h2>Are you Sure!!</h2>
-      <p>Do you want to delete this Task on this app?</p>
-      <div className="modal-footer-btns">
-        <button>Yes</button>
-        <button>No</button>
+    <div className="warning-modal-overlay">
+      <div className="warning-modal-content">
+        <div className="banner">
+          <img src="/svg/modal/dlt-alert.svg" alt="" />
+        </div>
+
+        <h2>Are you Sure!!</h2>
+        <p>Do you want to delete this Task on this app?</p>
+        <div className="modal-footer-btns">
+          <button onClick={handleTaskDelete} className="yes-btn">Yes</button>
+          <button onClick={onClose} className="no-btn">No</button>
+        </div>
       </div>
     </div>
   );

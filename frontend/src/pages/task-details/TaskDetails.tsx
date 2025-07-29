@@ -2,9 +2,11 @@ import { useState } from "react";
 import { fakeTasks } from "../../utils/fakeData";
 import "./TaskDetails.scss";
 import CongratulationsModal from "../../components/modals/congrats/CongratulationsModal";
+import DeleteTaskModal from "../../components/modals/delete-task/DeleteTaskModal";
 
 const TaskDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isWarningModalOpen, setIsWarningModalOpen] = useState<boolean>(false);
   const [earnedPoints, setEarnedPoints] = useState<number>(0);
   const fakeTask = fakeTasks[0];
 
@@ -13,9 +15,17 @@ const TaskDetails = () => {
     setEarnedPoints(points);
     setIsModalOpen(true);
   };
+
+  const handleDeleteTask = () =>{
+    setIsWarningModalOpen(true);
+  }
   const handleCloseModal = (): void => {
     setIsModalOpen(false);
   };
+ 
+  const handleCloseWarningModal = ():void=>{
+    setIsWarningModalOpen(false);
+  }
 
   return (
     <div className="task-details-container">
@@ -68,15 +78,19 @@ const TaskDetails = () => {
       </div>
       <div className="task-details-footer">
         <div className="task-details-footer-btns">
-          <button className="dlt-btn">Delete Task</button>
+          <button onClick={handleDeleteTask} className="dlt-btn">Delete Task</button>
           <button onClick={handleTaskComplete} className="submit-btn">Submit</button>
         </div>
       </div>
-      {/* The Congratulations Modal */}
+      {/* Congratulations modal */}
       <CongratulationsModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        pointsEarned={earnedPoints}
+      />
+      {/*Delete task warning modal */}
+      <DeleteTaskModal
+      isOpen={isWarningModalOpen}
+      onClose={handleCloseWarningModal}
       />
     </div>
   );
