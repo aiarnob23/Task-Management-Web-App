@@ -10,6 +10,7 @@
     justify-content: space-between;
     margin-bottom: 52px;
     align-items: center;
+    position: relative;
 
     .logo {
       color: #fff;
@@ -44,6 +45,7 @@
       }
     }
     .user-icon {
+      cursor: pointer;
       h3 {
         color: #fff;
         font-size: 18px;
@@ -73,7 +75,7 @@
       font-size: 40px;
       font-style: normal;
       font-weight: 600;
-      line-height: 132%; 
+      line-height: 132%;
       letter-spacing: -0.8px;
     }
   }

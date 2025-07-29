@@ -52,6 +52,12 @@
       margin-bottom: 33px;
     }
     .form-container {
+      .error-message{
+        color: rgb(224, 69, 69);
+        font-weight: 500;
+        font-size: 16px;
+        margin-top: 12px;
+      }
       .input-field {
         display: flex;
         flex-direction: column;
@@ -120,9 +126,13 @@
         font-weight: 600;
         line-height: 164%;
         text-transform: capitalize;
+        cursor: pointer;
+      }
+      .signup-btn:active{
+        scale: 0.98;
       }
     }
-    .sign-up-navigate {
+    .login-navigate {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -147,13 +157,13 @@
           background-color: var(--gray-500);
         }
       }
-      .sign-up-navigate-btn {
+      .login-navigate-btn {
         color: var(--gray-500);
         font-size: 16px;
         font-style: normal;
         font-weight: 500;
         line-height: 164%;
-        .sign-up-text {
+        .login-text {
           color: #000;
           font-size: 16px;
           font-style: normal;

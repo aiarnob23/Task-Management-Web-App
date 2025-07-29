@@ -1,4 +1,4 @@
-import { Task } from "../models/task.model";
+import { Task } from "../models/task.model.js";
 
 // create new task
 const createNewTask = async (payload) => {

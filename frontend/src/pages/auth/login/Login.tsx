@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 import "./Login.scss";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useLogin } from "../../../hooks/useLogin";
+import { useEffect, useState } from "react";
 
 type LoginInputs = {
   email: string;
@@ -8,16 +10,30 @@ type LoginInputs = {
 };
 
 const Login = () => {
+  const {signIn, loading, error, success} = useLogin();
+  const [loginError, setLoginError] = useState<string | null>(null);
   // handle login
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<LoginInputs>();
 
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
-    console.log(data);
+    setLoginError(null);
+    await signIn(data.email as string, data.password as string);
   };
+
+   useEffect(() => {
+    if (success) {
+      window.location.href="/dashboard";
+    }
+    if (error) {
+      setLoginError(error);
+    }
+  }, [success, error]);
+
+  console.log(success);
 
   return (
     <div className="login-container">
@@ -49,7 +65,7 @@ const Login = () => {
                 {...register("email", { required: true })}
               />
               {errors.email && (
-                <p className="text-red-500">{errors.email.message}</p>
+                <p className="hook-form-error">{errors.email.message}</p>
               )}
             </div>
             {/* password field */}
@@ -62,7 +78,7 @@ const Login = () => {
                 })}
               />
               {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
+                <p className="hook-form-error">{errors.password.message}</p>
               )}
             </div>
             {/* remember me field */}
@@ -73,8 +89,12 @@ const Login = () => {
                 </div>
                 <button>Forgot passwsord ?</button>
             </div>
+            {/* error div */}
+            {
+              loginError && <p className="error-text">{loginError}</p>
+            }
             {/* submit button */}
-            <button className="login-btn" type="submit" disabled={isSubmitting}>
+            <button aria-disabled={loading} className="login-btn cursor-pointer" type="submit" disabled={loading}>
               Login
             </button>
           </form>

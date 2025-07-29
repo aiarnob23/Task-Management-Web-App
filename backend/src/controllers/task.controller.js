@@ -1,6 +1,6 @@
-import { taskService } from "../services/task.service";
-import catchAsync from "../utils/catchAsync";
-import sendResponse from "../utils/sendResponse";
+import { taskService } from "../services/task.service.js";
+import catchAsync from "../utils/catchAsync.js";
+import sendResponse from "../utils/sendResponse.js";
 
 //create new task
 const createNewTask = catchAsync(async(req,res)=>{

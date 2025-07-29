@@ -7,7 +7,8 @@ import { createToken } from "../utils/createToken.js";
 
 // create new user
 const createNewUserToDB = catchAsync(async (req, res) => {
-  const payload = req?.body;
+  const payload = req?.body?.data;
+  console.log(payload);
   if (!isValidEmail(payload?.email)) {
     sendResponse(res, {
       success: false,
@@ -75,6 +76,7 @@ const userLoginVerification = catchAsync(async (req, res) => {
       user: {
         id: userData._id,
         email: userData.email,
+        name:userData.name,
       },
       token:token,
     },

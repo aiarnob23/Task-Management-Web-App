@@ -1,6 +1,8 @@
 import "./SignUp.scss";
 import { Link } from "react-router";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useSignUp } from "../../../hooks/useSignUp";
 
 type SignUpInputs = {
   name: string;
@@ -10,16 +12,32 @@ type SignUpInputs = {
 };
 
 const SignUp = () => {
+  const [signUpError, setSignUpError] = useState<any>(null);
+  const { signUp, loading, error, success } = useSignUp();
   // handle sign up
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useForm<SignUpInputs>();
 
   const onSubmit: SubmitHandler<SignUpInputs> = async (data) => {
-    console.log(data);
+    setSignUpError(null);
+    if (data.password != data.confirmedPassword) {
+      setSignUpError("Password must be the same");
+      return;
+    }
+    await signUp(data);
   };
+
+  useEffect(() => {
+    if (success) {
+      window.location.href="/dashboard";
+    }
+    if (error) {
+      setSignUpError(error);
+    }
+  }, [success, error]);
 
   return (
     <div className="signup-container">
@@ -56,9 +74,6 @@ const SignUp = () => {
                 placeholder="Enter your full name"
                 {...register("name", { required: true })}
               />
-              {errors.name && (
-                <p className="text-red-500">{errors.name.message}</p>
-              )}
             </div>
             {/* email field */}
             <div className="input-field mb-[32px]">
@@ -67,9 +82,6 @@ const SignUp = () => {
                 placeholder="Enter your email address"
                 {...register("email", { required: true })}
               />
-              {errors.email && (
-                <p className="text-red-500">{errors.email.message}</p>
-              )}
             </div>
             {/* password field */}
             <div className="input-field mb-[32px]">
@@ -80,9 +92,6 @@ const SignUp = () => {
                   required: true,
                 })}
               />
-              {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
-              )}
             </div>
             {/*confirm password field */}
             <div className="input-field">
@@ -93,30 +102,30 @@ const SignUp = () => {
                   required: true,
                 })}
               />
-              {errors.confirmedPassword && (
-                <p className="text-red-500">{errors.confirmedPassword.message}</p>
-              )}
             </div>
+            {/* error div */}
+            {signUpError && <p className="error-message">{signUpError}</p>}
 
             {/* sign up button */}
             <button
               className="signup-btn"
               type="submit"
+              aria-disabled={loading}
               disabled={isSubmitting}
             >
               Sign Up
             </button>
           </form>
         </div>
-        <div className="sign-up-navigate">
+        <div className="login-navigate">
           <div className="or-text-div">
             <div className="stroke"></div>
             <span>Or</span>
             <div className="stroke"></div>
           </div>
-          <div className="sign-up-navigate-btn">
+          <div className="login-navigate-btn">
             Already have an account?{" "}
-            <span className="sign-up-text">
+            <span className="login-text">
               <Link to="/auth/login">Log In</Link>
             </span>
           </div>

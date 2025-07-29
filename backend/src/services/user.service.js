@@ -9,7 +9,7 @@ const createNewUser = async(payload)=>{
 
 //get user hash pass 
 const getUserPass = async(email)=>{
-    const result = await User.findOne({email:email} , {password:1});
+    const result = await User.findOne({email:email});
     return result;
 }
 export const userService = {

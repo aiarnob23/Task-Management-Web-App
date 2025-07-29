@@ -1,0 +1,22 @@
+    .logout-btn {
+      cursor: pointer;
+      display: flex;
+      width: 200px;
+      padding: 12px 14px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: var(--Main, #60e5ae);
+      color: #1f1f1f;
+      font-family: "Plus Jakarta Sans";
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 164%; 
+      text-transform: capitalize;
+    }
+    .logout-btn:active{
+      scale:0.98
+    }
