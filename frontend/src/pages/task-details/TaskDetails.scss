@@ -28,6 +28,7 @@
       align-items: center;
       gap: 18px;
       .edit-btn {
+        cursor: pointer;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -47,6 +48,7 @@
         text-transform: capitalize;
       }
       .back-btn {
+        cursor: pointer;
         display: flex;
         width: 146px;
         padding: 12px 24px;
@@ -181,6 +183,7 @@
       gap: 20px;
 
       .dlt-btn {
+        cursor: pointer;
         display: flex;
         width: 270px;
         padding: 16px 24px;
@@ -198,6 +201,7 @@
         text-transform: capitalize;
       }
       .submit-btn {
+        cursor: pointer;
         display: flex;
         width: 270px;
         padding: 16px 24px;

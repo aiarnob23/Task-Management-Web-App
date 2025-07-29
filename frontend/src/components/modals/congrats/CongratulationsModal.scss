@@ -1,0 +1,58 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 26px;
+  border-radius: 16px;
+  text-align: center;
+  position: relative;
+  max-width: 500px;
+  box-sizing: border-box;
+
+  .modal-close-button {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .modal-body {
+    padding: 46px 54px;
+
+    .congrats-svg {
+      margin-bottom: 45px;
+    }
+    .main-message {
+      color: var(--text-heading);
+      text-align: center;
+      font-family: Poppins;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 132%;
+      letter-spacing: -0.48px;
+      margin-bottom: 8px;
+    }
+    .reward-message {
+      color: var(--Greys-Blue-Grey-700, #737791);
+      text-align: center;
+      font-family: Poppins;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 28px;
+    }
+  }
+}

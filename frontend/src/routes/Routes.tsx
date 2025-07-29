@@ -6,6 +6,8 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import MainLayout from "../layouts/MainLayout";
 import TaskDetails from "../pages/task-details/TaskDetails";
 import PrivateRoute from "./PrivateRoutes";
+import Spin from "../pages/spin/Spin";
+
 
 const router = createBrowserRouter([
   {
@@ -22,7 +24,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/spin",
-        element: <p>spin</p>,
+        element: <Spin/>,
       },
     ],
   },

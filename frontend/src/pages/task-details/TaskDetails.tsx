@@ -1,9 +1,22 @@
+import { useState } from "react";
 import { fakeTasks } from "../../utils/fakeData";
 import "./TaskDetails.scss";
+import CongratulationsModal from "../../components/modals/congrats/CongratulationsModal";
 
 const TaskDetails = () => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [earnedPoints, setEarnedPoints] = useState<number>(0);
   const fakeTask = fakeTasks[0];
-  console.log(fakeTask);
+
+  const handleTaskComplete = (): void => {
+    const points = 200;
+    setEarnedPoints(points);
+    setIsModalOpen(true);
+  };
+  const handleCloseModal = (): void => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="task-details-container">
       <div className="task-details-header">
@@ -56,9 +69,15 @@ const TaskDetails = () => {
       <div className="task-details-footer">
         <div className="task-details-footer-btns">
           <button className="dlt-btn">Delete Task</button>
-          <button className="submit-btn">Submit</button>
+          <button onClick={handleTaskComplete} className="submit-btn">Submit</button>
         </div>
       </div>
+      {/* The Congratulations Modal */}
+      <CongratulationsModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        pointsEarned={earnedPoints}
+      />
     </div>
   );
 };

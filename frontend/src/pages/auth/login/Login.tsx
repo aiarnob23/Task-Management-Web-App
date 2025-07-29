@@ -64,9 +64,6 @@ const Login = () => {
                 placeholder="m3220@gmail.com"
                 {...register("email", { required: true })}
               />
-              {errors.email && (
-                <p className="hook-form-error">{errors.email.message}</p>
-              )}
             </div>
             {/* password field */}
             <div className="input-field">
@@ -77,9 +74,6 @@ const Login = () => {
                   required: true,
                 })}
               />
-              {errors.password && (
-                <p className="hook-form-error">{errors.password.message}</p>
-              )}
             </div>
             {/* remember me field */}
             <div className="remember-me-field">

@@ -15,6 +15,7 @@
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.532.0",
     "react": "^19.1.0",
+    "react-custom-roulette": "^1.4.1",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.61.1",
     "react-router": "^7.7.1",
