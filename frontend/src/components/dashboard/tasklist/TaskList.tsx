@@ -1,88 +1,102 @@
-import  { useState, useEffect, useRef } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
-import './TaskList.scss';
+import { useState, useEffect, useRef } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import "./TaskList.scss";
+import { fakeTasks } from "../../../utils/fakeData";
 
 const TaskList = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isStatusOpen, setIsStatusOpen] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<any>([]);
-  const [selectedStatus, setSelectedStatus] = useState(['Pending']);
+  const [selectedStatus, setSelectedStatus] = useState(["Pending"]);
+  const [tasks, setTasks] = useState<any>([]);
 
   const categories = [
-    'Arts and Craft',
-    'Nature',
-    'Family',
-    'Sport',
-    'Friends',
-    'Meditation',
+    "Arts and Craft",
+    "Nature",
+    "Family",
+    "Sport",
+    "Friends",
+    "Meditation",
   ];
 
   const statusOptions = [
-    'All Task',
-    'Ongoing',
-    'Pending',
-    'Collaborative Task',
-    'Done',
+    "All Task",
+    "Ongoing",
+    "Pending",
+    "Collaborative Task",
+    "Done",
   ];
+
+  // //task fetch
+  useEffect(() => {
+    const getTasks = () => {
+      let taskList = fakeTasks;
+      setTasks(taskList);
+    };
+
+    getTasks();
+  }, []);
 
   const categoryDropdownRef = useRef<any>(null);
   const statusDropdownRef = useRef<any>(null);
 
   // dropdown close handle
   useEffect(() => {
-    const handleClickOutside = (event : any) => {
+    const handleClickOutside = (event: any) => {
       if (
-        categoryDropdownRef.current && !categoryDropdownRef.current.contains(event.target) &&
-        statusDropdownRef.current && !statusDropdownRef.current.contains(event.target)
+        categoryDropdownRef.current &&
+        !categoryDropdownRef.current.contains(event.target) &&
+        statusDropdownRef.current &&
+        !statusDropdownRef.current.contains(event.target)
       ) {
         setIsCategoryOpen(false);
         setIsStatusOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-// dropdown handle
+  // dropdown handle
   const toggleCategoryDropdown = () => {
     setIsCategoryOpen(!isCategoryOpen);
-    setIsStatusOpen(false); 
+    setIsStatusOpen(false);
   };
 
   const toggleStatusDropdown = () => {
     setIsStatusOpen(!isStatusOpen);
-    setIsCategoryOpen(false); 
+    setIsCategoryOpen(false);
   };
 
-  const handleCategoryToggle = (category:string) => {
-    setSelectedCategories((prev:any) => {
+  const handleCategoryToggle = (category: string) => {
+    setSelectedCategories((prev: any) => {
       if (prev.includes(category)) {
-        return prev.filter((c:any) => c !== category);
+        return prev.filter((c: any) => c !== category);
       } else {
         return [...prev, category];
       }
     });
   };
 
-  const handleStatusSelect = (status:any) => {
-    if (status === 'All Task') {
+  const handleStatusSelect = (status: any) => {
+    if (status === "All Task") {
       setSelectedStatus([
-        'All Task',
-        'Ongoing',
-        'Pending',
-        'Collaborative Task',
-        'Done',
+        "All Task",
+        "Ongoing",
+        "Pending",
+        "Collaborative Task",
+        "Done",
       ]);
     } else {
       setSelectedStatus((prev) => {
         if (prev.includes(status)) {
           return prev.filter((s) => s !== status);
         } else {
-          if (prev.includes('All Task')) {
-            return prev.filter((s) => s !== 'All Task');
+          if (prev.includes("All Task")) {
+            return prev.filter((s) => s !== "All Task");
           }
           return [...prev, status];
         }
@@ -92,7 +106,7 @@ const TaskList = () => {
 
   const getCategoryDisplayText = () => {
     if (selectedCategories.length === 0) {
-      return 'Select Task Category';
+      return "Select Task Category";
     } else if (selectedCategories.length === 1) {
       return selectedCategories[0];
     } else {
@@ -102,9 +116,9 @@ const TaskList = () => {
 
   const getStatusDisplayText = () => {
     if (selectedStatus.length === statusOptions.length) {
-      return 'All Task';
+      return "All Task";
     } else if (selectedStatus.length === 0) {
-      return 'Select Status';
+      return "Select Status";
     } else if (selectedStatus.length === 1) {
       return selectedStatus[0];
     } else {
@@ -112,6 +126,8 @@ const TaskList = () => {
     }
   };
 
+  console.log(tasks);
+  // ------------------------------------------------------------------------//
   return (
     <div className="task-list-container">
       <div className="task-list-heading-div">
@@ -124,7 +140,9 @@ const TaskList = () => {
                 onClick={toggleCategoryDropdown}
                 className="dropdown-button"
               >
-                <span className="dropdown-text">{getCategoryDisplayText()}</span>
+                <span className="dropdown-text">
+                  {getCategoryDisplayText()}
+                </span>
                 {isCategoryOpen ? (
                   <ChevronUp className="dropdown-icon" />
                 ) : (
@@ -232,6 +250,75 @@ const TaskList = () => {
           <button className="add-task-button">Add New Task</button>
         </div>
       </div>
+      {/* no tasks div */}
+      {!tasks?.length && (
+        <div className="no-task-div">
+          <img src="/svg/task/no-task-frame.svg" alt="" />
+          <h3>No Task is Available yet, Please Add your New Task</h3>
+        </div>
+      )}
+
+      {/* tasks card div */}
+      {tasks?.length && (
+        <div className="task-card-div">
+          {tasks.map((task: any) => (
+            <div key={task?._id}>
+              <div className="task-single-card">
+                <div className="task-card-header">
+                  <div className="icon">
+                    <img src="/icons/art-craft-icon.svg" alt="" />
+                  </div>
+                  <div>
+                    <div className="task-category">{task.category}</div>
+                    <div className="task-details">{task.details}</div>
+                  </div>
+                  <div className="trash">
+                    <img src="/icons/trash-orange.svg" alt="" />
+                  </div>
+                </div>
+
+                <div className="task-card-footer">
+                  <div className="task-deadline">
+                    <div className="calender-icon">
+                      <img src="/icons/calendar-edit.svg" alt="" />
+                    </div>
+                    <div className="date"> {task.deadline}</div>
+                  </div>
+                  <div
+                    className={`task-status ${
+                      task.status === "Pending"
+                        ? "pending-color"
+                        : task.status === "Done"
+                        ? "done-color"
+                        : task.status === "InProgress"
+                        ? "inprogress-color"
+                        : ""
+                    }`}
+                  >
+                    <div className="svg">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="6"
+                        height="7"
+                        viewBox="0 0 6 7"
+                        fill="none"
+                      >
+                        <circle
+                          cx="3"
+                          cy="3.5"
+                          r="3"
+                          fill="var(--svg-fill-color)"
+                        />
+                      </svg>
+                    </div>
+                    <div className="status-text"> {task.status}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
