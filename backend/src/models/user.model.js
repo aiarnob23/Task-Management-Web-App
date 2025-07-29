@@ -1,4 +1,3 @@
-
 import { model, Schema } from 'mongoose'
 
 const userSchema = new Schema({
@@ -20,10 +19,5 @@ const userSchema = new Schema({
         required:false, 
     }
 })
-
-
-userSchema.statics.isPasswordMatched = async function(plainTextPassword, hashedPassword){
-    return await bcrypt.compare(plainTextPassword, hashedPassword);
-}
 
 export const User = model('User', userSchema);

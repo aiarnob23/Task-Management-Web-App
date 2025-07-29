@@ -3,6 +3,7 @@ import sendResponse from "../utils/sendResponse.js";
 import { comparePassword, hashedPassword } from "../utils/passBcrypt.js";
 import { userService } from "../services/user.service.js";
 import { isValidEmail } from "../utils/email.validator.js";
+import { createToken } from "../utils/createToken.js";
 
 // create new user
 const createNewUserToDB = catchAsync(async (req, res) => {
@@ -20,11 +21,12 @@ const createNewUserToDB = catchAsync(async (req, res) => {
   payload.password = hashed;
   const result = await userService.createNewUser(payload);
   if (result) {
+    const token = createToken(result.email);
     sendResponse(res, {
       success: true,
       statusCode: 200,
       message: "User created successfully",
-      data: result,
+      data: {result, token},
     });
   }
 });
@@ -63,7 +65,8 @@ const userLoginVerification = catchAsync(async (req, res) => {
       data: null,
     });
   }
-
+ 
+  const token = createToken(email);
   sendResponse(res, {
     success: true,
     statusCode: 200, 
@@ -73,7 +76,7 @@ const userLoginVerification = catchAsync(async (req, res) => {
         id: userData._id,
         email: userData.email,
       },
-      // token: 
+      token:token,
     },
   });
 });
