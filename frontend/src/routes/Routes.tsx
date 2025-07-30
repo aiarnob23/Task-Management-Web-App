@@ -7,6 +7,7 @@ import MainLayout from "../layouts/MainLayout";
 import TaskDetails from "../pages/task-details/TaskDetails";
 import PrivateRoute from "./PrivateRoutes";
 import Spin from "../pages/spin/Spin";
+import ResetPassword from "../pages/auth/reset-password/ResetPassword";
 
 
 const router = createBrowserRouter([
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "/auth/sign-up",
     element: <SignUp />,
+  },
+  {
+    path: "/auth/reset-password",
+    element: <ResetPassword />,
   },
   {
     path: "*",

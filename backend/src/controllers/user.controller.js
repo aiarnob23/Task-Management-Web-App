@@ -22,7 +22,7 @@ const createNewUserToDB = catchAsync(async (req, res) => {
   payload.password = hashed;
   const result = await userService.createNewUser(payload);
   if (result) {
-    const token = createToken(result.email);
+    const token = createToken({userId:result._id});
     sendResponse(res, {
       success: true,
       statusCode: 200,
@@ -67,7 +67,7 @@ const userLoginVerification = catchAsync(async (req, res) => {
     });
   }
 
-  const token = createToken(email);
+  const token = createToken({userId:userData?._id});
   sendResponse(res, {
     success: true,
     statusCode: 200,

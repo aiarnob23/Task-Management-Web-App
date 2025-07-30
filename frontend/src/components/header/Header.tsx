@@ -25,7 +25,7 @@ const Header = () => {
   return (
     <div className="header-container">
       <header>
-        <h3 className="logo">Tasko</h3>
+        <h3 className="logo flex justify-center items-center gap-[10px]"><img src="/icons/timer.svg" alt="" /><span>Tasko</span></h3>
         <nav className="nav-menu">
           {navLinks.map((link: any, index: number) => (
             <Link
@@ -35,11 +35,18 @@ const Header = () => {
               to={link.path}
               key={index}
             >
-              {link.name}
+              <div className="flex justify-center items-center gap-[10px]">
+                {/* <img className="w-[24px] h-[24px] " src={link.icon} alt="" /> */}
+                {link.name}
+
+              </div>
             </Link>
           ))}
         </nav>
         <div onClick={toggleLogOutDiv} className="flex justify-center items-center cursor-pointer user-icon">
+         <div className="user-dp">
+          <img className="rounded-[50%] mr-[11px]" src="/svg/user/user.svg" alt="" />
+         </div>
           <h3>{firstName}</h3>
           <span>
             <svg

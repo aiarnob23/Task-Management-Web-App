@@ -43,20 +43,7 @@ const SignUp = () => {
     <div className="signup-container">
       {/*------- left div-------- */}
       <div className="iamge-div">
-        <img
-          className="image-div-svg"
-          src="/svg/auth/signup/banner.svg"
-          alt=""
-        />
-        <div className="circle1">
-          <img src="/svg/background/circle1.svg" alt="" />
-        </div>
-        <div className="circle2">
-          <img src="/svg/background/circle2.svg" alt="" />
-        </div>
-        <div className="circle3">
-          <img src="/svg/background/circle3.svg" alt="" />
-        </div>
+        
       </div>
       {/* -------right div-------- */}
       <div className="signup-content-div">

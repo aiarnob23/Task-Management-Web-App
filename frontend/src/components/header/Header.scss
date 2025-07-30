@@ -1,8 +1,10 @@
 .header-container {
   height: 174px;
-  background-color: var(--primary-black);
+  background: url('/svg/header.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
   padding-top: 30px;
-
+  
   header {
     max-width: 1320px;
     margin: auto;
@@ -10,6 +12,7 @@
     justify-content: space-between;
     margin-bottom: 52px;
     align-items: center;
+    z-index: 1000;
 
     .logo {
       color: #fff;

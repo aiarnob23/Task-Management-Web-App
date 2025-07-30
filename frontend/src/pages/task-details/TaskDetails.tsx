@@ -23,7 +23,6 @@ const TaskDetails = () => {
   const statusDropdownRef = useRef<any>(null);
 
   const statusOptions = [
-    "All Task",
     "Ongoing", 
     "Pending",
     "Collaborative Task",

@@ -116,7 +116,7 @@ const TaskList = () => {
   };
 
   // Filter tasks 
-  const filteredTasks = tasks.filter((task: any) => {
+  const filteredTasks = tasks?.filter((task: any) => {
     const categoryMatch = selectedCategories.includes("All Categories") || selectedCategories.includes(task.category);
     const statusMatch = selectedStatus === "All Task" || task.status === selectedStatus;
     return categoryMatch && statusMatch;
@@ -242,7 +242,7 @@ const TaskList = () => {
             onClick={() => setIsModalOpen(true)}
             className="add-task-button"
           >
-            Add New Task
+          <span><img src="/icons/paper-plus.svg" alt="" /></span> <span> Add New Task</span>
           </button>
         </div>
       </div>

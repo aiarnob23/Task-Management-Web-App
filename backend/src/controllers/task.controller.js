@@ -5,6 +5,16 @@ import sendResponse from "../utils/sendResponse.js";
 //get user's task
 const getUsersTaskList = catchAsync(async (req, res) => {
   const userId = req?.params?.id;
+  console.log(req.realUser.userId===userId);
+  if(!req.realUser.userId===userId){
+    return sendResponse(res,{
+      success:false,
+      statusCode:401,
+      message:"Access Denied",
+      data:null,
+      redirect:"/auth/login"
+    })
+  }
   if (userId) {
     const result = await taskService.getTaskList(userId);
     if (result) {

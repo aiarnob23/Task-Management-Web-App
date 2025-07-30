@@ -12,12 +12,27 @@
 }
 
 .add-task-modal-content {
+  background: url("/svg/auth/signup/banner.sv");
   background-color: #ffffff;
   padding: 34px 76px;
   border-radius: 16px;
   text-align: center;
   position: relative;
   box-sizing: border-box;
+
+  .heading {
+    h2 {
+      text-align: start;
+      margin-bottom: 24px;
+      font-size: 30px;
+      font-weight: 600;
+      color: var(--text-heading);
+      font-family: Poppins;
+      font-style: normal;
+      line-height: 132%;
+      letter-spacing: -0.48px;
+    }
+  }
 
   .modal-close-button {
     cursor: pointer;

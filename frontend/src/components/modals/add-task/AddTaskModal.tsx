@@ -54,6 +54,9 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ isOpen, onClose }) => {
         <button className="modal-close-button" onClick={onClose}>
           <img src="/svg/modal/x.svg" alt="" />
         </button>
+        <div className="heading">
+          <h2>Add Your Goal</h2>
+        </div>
         <div className="form-container">
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* category select */}

@@ -1,6 +1,8 @@
 .dashboard-header-container {
   height: 306px;
-  background-color: var(--primary-black);
+  background: url("/svg/dashboard-header.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
   padding-top: 30px;
 
   header {
@@ -13,6 +15,10 @@
     position: relative;
 
     .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
       color: #fff;
       font-family: Poppins;
       font-size: 24px;
@@ -20,6 +26,14 @@
       font-weight: 600;
       line-height: 132%;
       letter-spacing: -0.48px;
+      img {
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        padding: 7px;
+        border-radius: 8px;
+        background-color: #477267;
+      }
     }
     .nav-menu {
       display: flex;
@@ -45,6 +59,13 @@
       }
     }
     .user-icon {
+      .user-dp {
+        border-radius: 50%;
+        margin-right: 10px;
+        img {
+          border-radius: 50%;
+        }
+      }
       cursor: pointer;
       h3 {
         color: #fff;

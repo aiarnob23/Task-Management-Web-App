@@ -5,14 +5,26 @@ const token = Cookies.get("task-management-app-accessToken");
 
 //get user's task list
 export const getUsersTaskLists = async () => {
-  if (!userId) {
+  if (!userId || !token) {
     return (window.location.href = "/auth/login");
   }
-  const result = await serverBaseUrl.get(`/task/task-list/${userId}`);
-  if (result?.data?.success) {
-    return result.data.data;
-  } else {
-    return null;
+  try {
+    const result = await serverBaseUrl.get(`/task/task-list/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(result);
+    if (result?.data?.success) {
+      return result.data.data;
+    } else {
+      return null;
+    }
+  } catch (error: any) {
+    console.log(error);
+    if (error?.response?.data?.redirect) {
+      window.location.href = "/auth/login";
+    }
   }
 };
 
@@ -34,10 +46,10 @@ export const getTaskDetails = async (taskId: string) => {
 };
 
 //update task details
-export const updateTask = async(taskId:string , data:any)=>{
+export const updateTask = async (taskId: string, data: any) => {
   const result = await serverBaseUrl.patch(`/task/update/${taskId}`, data);
   console.log(result);
-}
+};
 
 //create new task
 export const createNewTask = async (payload: any) => {

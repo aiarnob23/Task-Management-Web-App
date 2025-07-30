@@ -25,7 +25,10 @@ useEffect(()=>{
   return (
     <div className="dashboard-header-container">
       <header>
-        <h3 className="logo">Tasko</h3>
+        <div className="logo">
+          <img src="/icons/timer.svg" alt="" />
+          <h3 >Tasko</h3>
+        </div>
         <nav className="nav-menu">
           {navLinks.map((link: any, index: number) => (
             <Link
@@ -43,6 +46,7 @@ useEffect(()=>{
           onClick={toggleLogOutDiv}
           className="user-icon flex justify-center items-center gap-[4px]"
         >
+          <div className="user-dp"><img src="/svg/user/user.svg" alt="" /></div>
           <h3>{firstName}</h3>
           <span>
             <svg

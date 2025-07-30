@@ -6,22 +6,17 @@
   .not-found-bg {
     height: 174px;
     width: 100dvw;
-    background: var(--primary-black);
-    position: relative;
-
-    .not-found-bg-svg {
-      position: absolute;
-      right: 0;
-      height: 100%;
-    }
+    background: url("/svg/header.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   .not-found-content-container {
-    position: absolute;
+    padding: 101px 368px 74px;
+    position: relative;
     background-color: #ffffff;
     max-width: 1320px;
     margin: auto;
-    height: 842px;
-    top: 115px;
+    top: -100px;
     left: 0;
     right: 0;
     border-radius: 15px;
@@ -32,21 +27,25 @@
     align-items: center;
 
     .not-found-action-button {
-      background-color: var(--main);
-      border-radius: 8px;
+      cursor: pointer;
       display: flex;
-      padding: 15px 253px;
+      width: 550px;
+      padding: 15px;
       justify-content: center;
       align-items: center;
       gap: 10px;
+      border-radius: 8px;
+      background: var(--main);
       color: #1f1f1f;
-
       font-family: "Plus Jakarta Sans";
       font-size: 18px;
       font-style: normal;
       font-weight: 600;
       line-height: 164%; 
       text-transform: capitalize;
+      &:active{
+        scale: 0.98;
+      }
     }
   }
 }

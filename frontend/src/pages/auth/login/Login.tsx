@@ -39,14 +39,6 @@ const Login = () => {
     <div className="login-container">
       {/*------- left div-------- */}
       <div className="iamge-div">
-        <img
-          className="image-div-svg"
-          src="/svg/auth/login/roadmap-design.svg"
-          alt=""
-        />
-        <div className="circle1"><img src="/svg/background/circle1.svg" alt="" /></div>
-        <div className="circle2"><img src="/svg/background/circle2.svg" alt="" /></div>
-        <div className="circle3"><img src="/svg/background/circle3.svg" alt="" /></div>
       </div>
       {/* -------right div-------- */}
       <div className="login-content-div">
