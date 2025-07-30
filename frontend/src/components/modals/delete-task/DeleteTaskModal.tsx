@@ -15,11 +15,15 @@ const DeleteTaskModal: React.FC<DeleteTaskModalProps> = ({
   if (!isOpen) {
     return null;
   }
- 
+
   // handle task deletion
-  const handleTaskDelete = async()=>{
-     await deleteTask("034ifj3409r8u4389rj9");
-  }
+  const handleTaskDelete = async () => {
+    const res = await deleteTask("688961c9d67c10c48820ed38");
+    if(res?.success){
+      onClose();
+      window.location.href="/dashboard";
+    }
+  };
   return (
     <div className="warning-modal-overlay">
       <div className="warning-modal-content">
@@ -30,8 +34,12 @@ const DeleteTaskModal: React.FC<DeleteTaskModalProps> = ({
         <h2>Are you Sure!!</h2>
         <p>Do you want to delete this Task on this app?</p>
         <div className="modal-footer-btns">
-          <button onClick={handleTaskDelete} className="yes-btn">Yes</button>
-          <button onClick={onClose} className="no-btn">No</button>
+          <button onClick={handleTaskDelete} className="yes-btn">
+            Yes
+          </button>
+          <button onClick={onClose} className="no-btn">
+            No
+          </button>
         </div>
       </div>
     </div>

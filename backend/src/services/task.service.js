@@ -23,6 +23,12 @@ const deleteTask = async (id) => {
   return result;
 };
 
+//find a service by id
+const findTaskById = async(_id)=>{
+  const result = await Task.findById(_id);
+  return result;
+}
+
 //get user's task list
 const getTaskList = async (userId) => {
   const result = await Task.find({
@@ -37,4 +43,5 @@ export const taskService = {
   updateTask,
   getTaskList,
   deleteTask,
+  findTaskById,
 };

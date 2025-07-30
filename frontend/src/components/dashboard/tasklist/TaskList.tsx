@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import "./TaskList.scss";
-import { fakeTasks } from "../../../utils/fakeData";
+import AddTaskModal from "../../modals/add-task/AddTaskModal";
+import { getUsersTaskLists } from "../../../services/taskServices";
+import OrbitalSpinner from "../../ui/LoadingSpinner";
 
 const TaskList = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
@@ -9,6 +11,12 @@ const TaskList = () => {
   const [selectedCategories, setSelectedCategories] = useState<any>([]);
   const [selectedStatus, setSelectedStatus] = useState(["Pending"]);
   const [tasks, setTasks] = useState<any>([]);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   const categories = [
     "Arts and Craft",
@@ -27,15 +35,17 @@ const TaskList = () => {
     "Done",
   ];
 
-  // //task fetch
+  //task fetch
   useEffect(() => {
-    const getTasks = () => {
-      let taskList = fakeTasks;
-      setTasks(taskList);
+    setLoading(true);
+    const getTasks = async () => {
+      const res = await getUsersTaskLists();
+      setTasks(res);
+      setLoading(false);
     };
 
     getTasks();
-  }, []);
+  }, [isModalOpen]);
 
   const categoryDropdownRef = useRef<any>(null);
   const statusDropdownRef = useRef<any>(null);
@@ -124,6 +134,25 @@ const TaskList = () => {
     } else {
       return `${selectedStatus[0]} , ${selectedStatus[1]}, ...`;
     }
+  };
+
+  //handle task details view
+  const handleTaskDetailsView = (taskId:string)=>{
+    window.location.href=`/task-details/${taskId}`;
+  }
+
+  //handle format date
+  const formatTaskDate = (dateString: any) => {
+    const date = new Date(dateString);
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    };
+    const formattedDate = date.toLocaleDateString("en-US", options);
+    const parts = formattedDate.split(", ");
+    return `${parts[0]}, ${parts[1]} - ${parts[2]}`;
   };
 
   console.log(tasks);
@@ -247,30 +276,38 @@ const TaskList = () => {
             </div>
           </div>
 
-          <button className="add-task-button">Add New Task</button>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="add-task-button"
+          >
+            Add New Task
+          </button>
         </div>
       </div>
-      {/* no tasks div */}
-      {!tasks?.length && (
+      {/* Conditional rendering  */}
+      {loading ? (
+        <div className="loading-spinner-container min-h-[400px] flex justify-center items-center">
+          <OrbitalSpinner />
+        </div>
+      ) : !tasks?.length ? (
         <div className="no-task-div">
           <img src="/svg/task/no-task-frame.svg" alt="" />
           <h3>No Task is Available yet, Please Add your New Task</h3>
         </div>
-      )}
-
-      {/* tasks card div */}
-      {tasks?.length && (
+      ) : (
         <div className="task-card-div">
           {tasks.map((task: any) => (
             <div key={task?._id}>
-              <div className="task-single-card">
+              <div onClick={()=>handleTaskDetailsView(task._id)} className="task-single-card">
                 <div className="task-card-header">
-                  <div className="icon">
-                    <img src="/icons/art-craft-icon.svg" alt="" />
-                  </div>
-                  <div>
-                    <div className="task-category">{task.category}</div>
-                    <div className="task-details">{task.details}</div>
+                  <div className="icon-cat-div">
+                    <div className="icon">
+                      <img src="/icons/art-craft-icon.svg" alt="" />
+                    </div>
+                    <div>
+                      <div className="task-category">{task.category}</div>
+                      <div className="task-details">{task.details}</div>
+                    </div>
                   </div>
                   <div className="trash">
                     <img src="/icons/trash-orange.svg" alt="" />
@@ -282,7 +319,7 @@ const TaskList = () => {
                     <div className="calender-icon">
                       <img src="/icons/calendar-edit.svg" alt="" />
                     </div>
-                    <div className="date"> {task.deadline}</div>
+                    <div className="date">{formatTaskDate(task.deadline)}</div>
                   </div>
                   <div
                     className={`task-status ${
@@ -319,6 +356,8 @@ const TaskList = () => {
           ))}
         </div>
       )}
+      {/* Add new task modal */}
+      <AddTaskModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </div>
   );
 };

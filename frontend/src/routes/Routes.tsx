@@ -19,7 +19,7 @@ const router = createBrowserRouter([
     element: <PrivateRoute><MainLayout /></PrivateRoute>,
     children: [
       {
-        path: "/task-details",
+        path: "/task-details/:taskId",
         element: <TaskDetails/>,
       },
       {

@@ -9,24 +9,29 @@ const taskSchema = new Schema({
     type: String,
     required: true,
   },
-  status:{
-    type:String,
-    required:false,
-    default:"Pending",
+  status: {
+    type: String,
+    required: false,
+    default: "Pending",
   },
-  deadline:{
-    type:Date,
-    required:true,
+  deadline: {
+    type: Date,
+    required: true,
   },
-  isDeleted:{
-    type:Boolean,
-    default:false,
-    required:false,
+  points: {
+    type: Number,
+    required: false,
+    default: 20,
   },
-  user:{
-    type:String,
-    required:true,
-  }
+  isDeleted: {
+    type: Boolean,
+    default: false,
+    required: false,
+  },
+  user: {
+    type: String,
+    required: true,
+  },
 });
 
 export const Task = model("Task", taskSchema);
