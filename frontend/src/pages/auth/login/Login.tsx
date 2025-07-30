@@ -3,6 +3,7 @@ import "./Login.scss";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useLogin } from "../../../hooks/useLogin";
 import { useEffect, useState } from "react";
+import { Eye, EyeOff } from 'lucide-react';
 
 type LoginInputs = {
   email: string;
@@ -11,12 +12,17 @@ type LoginInputs = {
 
 const Login = () => {
   const {signIn, loading, error, success} = useLogin();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string | null>(null);
+
+  //handle toggle password view
+  const handleShowPassToggle = () =>{
+    setShowPassword(!showPassword);
+  }
   // handle login
   const {
     register,
     handleSubmit,
-    formState: { errors },
   } = useForm<LoginInputs>();
 
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
@@ -58,14 +64,20 @@ const Login = () => {
               />
             </div>
             {/* password field */}
-            <div className="input-field">
+            <div className="input-field password-input-field">
               <label htmlFor="password">Password</label>
               <input
+              type={showPassword ? 'text' : 'password'}
                 placeholder="*****************"
                 {...register("password", {
                   required: true,
                 })}
               />
+              <div onClick={handleShowPassToggle} className="eye-toggle">
+                {
+                  showPassword ? (<EyeOff/>):(<Eye/>)
+                }
+              </div>
             </div>
             {/* remember me field */}
             <div className="remember-me-field">
@@ -73,7 +85,7 @@ const Login = () => {
                     <input type="checkbox" placeholder="Remember me"/>
                     <span>Remember me</span>
                 </div>
-                <button>Forgot passwsord ?</button>
+                <button className="cursor-pointer"><Link to='/auth/reset-password'>Forgot passwsord ?</Link></button>
             </div>
             {/* error div */}
             {

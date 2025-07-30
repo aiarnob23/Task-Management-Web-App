@@ -75,6 +75,15 @@
           line-height: 164%;
         }
       }
+      .password-input-field{
+        position: relative;
+        .eye-toggle{
+          color: #97A0AF;
+            position: absolute;
+            right: 32px;
+            top: 48px;
+        }
+      }
       .remember-me-field {
         display: flex;
         justify-content: space-between;

@@ -1,9 +1,9 @@
-import { useEffect, useState, useCallback, useRef } from "react"; 
+import { useEffect, useState, useCallback, useRef } from "react";
 import { ChevronDown, ChevronUp, Check } from "lucide-react";
 import "./TaskDetails.scss";
 import CongratulationsModal from "../../components/modals/congrats/CongratulationsModal";
 import DeleteTaskModal from "../../components/modals/delete-task/DeleteTaskModal";
-import { Link, useParams } from "react-router-dom"; 
+import { Link, useParams } from "react-router-dom";
 import { getTaskDetails, updateTask } from "../../services/taskServices";
 import OrbitalSpinner from "../../components/ui/LoadingSpinner";
 import { updateUserDetails } from "../../services/userServices";
@@ -11,34 +11,31 @@ import EditTaskModal from "../../components/modals/edit-task/EditTaskModal";
 import { formatTaskDate } from "../../utils/dateFormat";
 
 const TaskDetails = () => {
-  const { taskId } = useParams<{ taskId: string }>(); 
+  const { taskId } = useParams<{ taskId: string }>();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isWarningModalOpen, setIsWarningModalOpen] = useState<boolean>(false);
-  const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState<boolean>(false);
+  const [isStatusDropdownOpen, setIsStatusDropdownOpen] =
+    useState<boolean>(false);
   const [task, setTask] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [selectedStatus, setSelectedStatus] = useState<string>(""); 
+  const [selectedStatus, setSelectedStatus] = useState<string>("");
 
   const statusDropdownRef = useRef<any>(null);
 
-  const statusOptions = [
-    "Ongoing", 
-    "Pending",
-    "Collaborative Task",
-    "Done"
-  ];
+  const statusOptions = ["Ongoing", "Pending", "Collaborative Task", "Done"];
 
-  const handleTaskComplete = async() => {
+  const handleTaskComplete = async () => {
     const points = 20;
     setIsModalOpen(true);
-    await updateUserDetails({points:points});
+    await updateUserDetails({ points: points });
+    await updateTask(taskId as string, { status: "Done" });
   };
 
   const handleDeleteTask = () => {
     setIsWarningModalOpen(true);
   };
-  
+
   const handleCloseModal = (): void => {
     setIsModalOpen(false);
   };
@@ -47,9 +44,9 @@ const TaskDetails = () => {
     setIsWarningModalOpen(false);
   };
 
-  const handleCloseEditModal = () :void => {
+  const handleCloseEditModal = (): void => {
     setIsEditModalOpen(false);
-  }
+  };
 
   //  fetchTaskDetails function
   const fetchTaskDetails = useCallback(async () => {
@@ -57,17 +54,17 @@ const TaskDetails = () => {
     try {
       const res = await getTaskDetails(taskId as string);
       setTask(res);
-      setSelectedStatus(res?.status); 
+      setSelectedStatus(res?.status);
     } catch (error) {
       console.error("Error fetching task details:", error);
     } finally {
       setLoading(false);
     }
-  }, [taskId]); 
+  }, [taskId]);
 
   useEffect(() => {
     fetchTaskDetails();
-  }, [fetchTaskDetails]); 
+  }, [fetchTaskDetails]);
 
   // dropdown close handle
   useEffect(() => {
@@ -113,7 +110,7 @@ const TaskDetails = () => {
         <h3>Task Details</h3>
         <div className="task-header-btns">
           <div className="task-points">{task?.points} Points</div>
-          <button onClick={()=>setIsEditModalOpen(true)} className="edit-btn">
+          <button onClick={() => setIsEditModalOpen(true)} className="edit-btn">
             <span className="edit-icon">
               <img src="/icons/edit-orange.svg" alt="" />
             </span>
@@ -155,7 +152,8 @@ const TaskDetails = () => {
                       ? "pending-color"
                       : task?.status === "Done"
                       ? "done-color"
-                      : task?.status === "InProgress" || task?.status === "Ongoing"
+                      : task?.status === "InProgress" ||
+                        task?.status === "Ongoing"
                       ? "inprogress-color"
                       : task?.status === "Collaborative Task"
                       ? "collaborative-color"
@@ -204,7 +202,9 @@ const TaskDetails = () => {
                         {statusOptions.map((status) => (
                           <div
                             key={status}
-                            className={`dropdown-item ${selectedStatus === status ? 'selected' : ''}`}
+                            className={`dropdown-item ${
+                              selectedStatus === status ? "selected" : ""
+                            }`}
                             onClick={() => handleStatusSelect(status)}
                           >
                             <div className="checkbox-wrapper">
@@ -246,17 +246,17 @@ const TaskDetails = () => {
       <CongratulationsModal isOpen={isModalOpen} onClose={handleCloseModal} />
       {/*Delete task warning modal */}
       <DeleteTaskModal
-      taskId={task?._id}
+        taskId={task?._id}
         isOpen={isWarningModalOpen}
         onClose={handleCloseWarningModal}
       />
       {/* Edit task modal */}
       <EditTaskModal
-      taskId={task?._id}
-      isOpen={isEditModalOpen}
-      onClose={handleCloseEditModal}
-      prevcategory={task?.category}
-      prevdetails={task?.details}
+        taskId={task?._id}
+        isOpen={isEditModalOpen}
+        onClose={handleCloseEditModal}
+        prevcategory={task?.category}
+        prevdetails={task?.details}
       />
     </div>
   );

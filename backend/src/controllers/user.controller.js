@@ -4,19 +4,13 @@ import { comparePassword, hashedPassword } from "../utils/passBcrypt.js";
 import { userService } from "../services/user.service.js";
 import { isValidEmail } from "../utils/email.validator.js";
 import { createToken } from "../utils/createToken.js";
+import AppError from "../error/appError.js";
 
 // create new user
-const createNewUserToDB = catchAsync(async (req, res) => {
+const createNewUserToDB = catchAsync(async (req, res , next) => {
   const payload = req?.body?.data;
-  console.log(payload);
   if (!isValidEmail(payload?.email)) {
-    sendResponse(res, {
-      success: false,
-      statusCode: 400,
-      message: "Email validation failed",
-      data: null,
-    });
-    return;
+     return next(new AppError("Email validation failed", 400));
   }
   const hashed = await hashedPassword(payload.password);
   payload.password = hashed;
@@ -37,34 +31,19 @@ const userLoginVerification = catchAsync(async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return sendResponse(res, {
-      success: false,
-      statusCode: 400,
-      message: "Email and password are required.",
-      data: null,
-    });
+    return next(new AppError("Email and password are required", 400));
   }
 
   const userData = await userService.getUserPass(email);
 
   if (!userData) {
-    return sendResponse(res, {
-      success: false,
-      statusCode: 401,
-      message: "Invalid credentials.",
-      data: null,
-    });
+    return next(new AppError("Invalid credentials", 401));
   }
 
   const isPasswordMatched = await comparePassword(password, userData.password);
 
   if (!isPasswordMatched) {
-    return sendResponse(res, {
-      success: false,
-      statusCode: 401,
-      message: "Invalid credentials.",
-      data: null,
-    });
+    return next(new AppError("Invalid credentials", 401));
   }
 
   const token = createToken({userId:userData?._id});
@@ -98,12 +77,7 @@ const updateUserDetails = catchAsync(async (req, res) => {
         data: result,
       });
     } else {
-      return sendResponse(res, {
-        success: false,
-        statusCode: 404,
-        message: "Request failed , Data not found",
-        data: result,
-      });
+      return next(new AppError("Request failed , Data not found", 404));
     }
   }
 });

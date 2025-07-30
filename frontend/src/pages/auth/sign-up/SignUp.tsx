@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { useSignUp } from "../../../hooks/useSignUp";
+import { Eye, EyeOff } from "lucide-react";
 
 type SignUpInputs = {
   name: string;
@@ -14,6 +15,11 @@ type SignUpInputs = {
 const SignUp = () => {
   const [signUpError, setSignUpError] = useState<any>(null);
   const { signUp, loading, error, success } = useSignUp();
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  //handle toggle password view
+  const handleShowPassToggle = () => {
+    setShowPassword(!showPassword);
+  };
   // handle sign up
   const {
     register,
@@ -32,7 +38,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if (success) {
-      window.location.href="/dashboard";
+      window.location.href = "/dashboard";
     }
     if (error) {
       setSignUpError(error);
@@ -42,9 +48,7 @@ const SignUp = () => {
   return (
     <div className="signup-container">
       {/*------- left div-------- */}
-      <div className="iamge-div">
-        
-      </div>
+      <div className="iamge-div"></div>
       {/* -------right div-------- */}
       <div className="signup-content-div">
         {/* heading */}
@@ -71,24 +75,36 @@ const SignUp = () => {
               />
             </div>
             {/* password field */}
-            <div className="input-field mb-[32px]">
+            <div className="input-field password-input-field mb-[32px]">
               <label htmlFor="password">Password</label>
               <input
+              type={showPassword ? "text" : "password"}
                 placeholder="*****************"
                 {...register("password", {
                   required: true,
                 })}
               />
+               <div onClick={handleShowPassToggle} className="eye-toggle">
+                {
+                  showPassword ? (<EyeOff/>):(<Eye/>)
+                }
+              </div>
             </div>
             {/*confirm password field */}
-            <div className="input-field">
+            <div className="input-field password-input-field">
               <label htmlFor="confirmedPassword">Confirm Password</label>
               <input
+               type={showPassword? "text" : "password"}
                 placeholder="Retype password"
                 {...register("confirmedPassword", {
                   required: true,
                 })}
               />
+               <div onClick={handleShowPassToggle} className="eye-toggle">
+                {
+                  showPassword ? (<EyeOff/>):(<Eye/>)
+                }
+              </div>
             </div>
             {/* error div */}
             {signUpError && <p className="error-message">{signUpError}</p>}

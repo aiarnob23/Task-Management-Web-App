@@ -1,19 +1,14 @@
 import { taskService } from "../services/task.service.js";
 import catchAsync from "../utils/catchAsync.js";
 import sendResponse from "../utils/sendResponse.js";
+import AppError from "../error/appError.js";
 
 //get user's task
 const getUsersTaskList = catchAsync(async (req, res) => {
   const userId = req?.params?.id;
   console.log(req.realUser.userId===userId);
   if(!req.realUser.userId===userId){
-    return sendResponse(res,{
-      success:false,
-      statusCode:401,
-      message:"Access Denied",
-      data:null,
-      redirect:"/auth/login"
-    })
+     return next(new AppError("Access Denied", 401));
   }
   if (userId) {
     const result = await taskService.getTaskList(userId);
