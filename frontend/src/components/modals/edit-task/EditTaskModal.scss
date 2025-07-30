@@ -1,0 +1,201 @@
+.edit-task-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.edit-task-modal-content {
+  background-color: #ffffff;
+  padding: 34px 76px;
+  border-radius: 16px;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
+
+  .modal-close-button {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 45px;
+  }
+
+  .form-container {
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      align-items: flex-start;
+      justify-content: center;
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        label {
+          color: var(--text-heading);
+          font-family: Poppins;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 132%;
+          letter-spacing: -0.32px;
+          margin-bottom: 12px;
+        }
+
+        select,
+        input[type="text"] {
+          width: 300px;
+          display: flex;
+          height: 50px;
+          padding: 12px 16px;
+          justify-content: center;
+          align-items: center;
+          gap: 90.5px;
+          border-radius: 8px;
+          border: 1px solid #e1e1e1;
+          background: #fff;
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+          color: var(--gray-500);
+          font-family: "Plus Jakarta Sans";
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 164%;
+          box-sizing: border-box;
+        }
+
+        select:focus,
+        input[type="text"]:focus {
+          outline: none;
+          border-color: var(--main);
+        }
+
+        select option {
+          color: rgba(0, 0, 0, 0.5);
+          font-family: "Plus Jakarta Sans";
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 18px;
+        }
+
+        /*  DatePicker styles */
+        .custom-datepicker-input {
+          width: 300px;
+          display: flex;
+          height: 50px;
+          padding: 12px 16px;
+          border-radius: 8px;
+          border: 1px solid #e1e1e1;
+          background: #fff;
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+          color: var(--gray-500);
+          font-family: "Plus Jakarta Sans";
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 164%;
+          box-sizing: border-box;
+          cursor: pointer;
+        }
+
+        .custom-datepicker-input:focus {
+          outline: none;
+          border-color: var(--main);
+        }
+
+        .react-datepicker {
+          border: 1px solid #e1e1e1;
+          border-radius: 8px;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+          font-family: "Plus Jakarta Sans";
+        }
+
+        .react-datepicker__header {
+          background-color: var(--main);
+          border-bottom: none;
+          padding-top: 10px;
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+        }
+
+        .react-datepicker__current-month,
+        .react-datepicker__day-name {
+          color: #fff;
+        }
+
+        .react-datepicker__navigation--previous,
+        .react-datepicker__navigation--next {
+          top: 10px;
+          border: none;
+        }
+
+        .react-datepicker__navigation-icon::before {
+          border-color: #fff;
+        }
+
+        .react-datepicker__day--selected,
+        .react-datepicker__day--keyboard-selected {
+          background-color: var(--main);
+          color: #fff;
+          border-radius: 50%;
+        }
+
+        .react-datepicker__day--outside-month {
+          color: #ccc;
+        }
+
+        .react-datepicker__day:hover {
+          background-color: #f0f0f0;
+          border-radius: 50%;
+        }
+
+        .error-message {
+          color: red;
+          font-size: 12px;
+          margin-top: 5px;
+        }
+      }
+
+      button[type="submit"] {
+        cursor: pointer;
+        display: flex;
+        width: 300px;
+        padding: 15px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 8px;
+        background: var(--main);
+        color: #ffffff;
+        font-family: "Plus Jakarta Sans";
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 164%;
+        text-transform: capitalize;
+        border: none;
+        color: var(--text-heading);
+        &:active {
+          scale: 0.98;
+          transform: translateY(1px);
+        }
+
+        &:disabled {
+          background: #cccccc;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

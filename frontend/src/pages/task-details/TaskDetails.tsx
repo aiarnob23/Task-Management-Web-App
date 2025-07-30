@@ -6,10 +6,12 @@ import { Link, useParams } from "react-router-dom";
 import { getTaskDetails, updateTask } from "../../services/taskServices";
 import OrbitalSpinner from "../../components/ui/LoadingSpinner";
 import { updateUserDetails } from "../../services/userServices";
+import EditTaskModal from "../../components/modals/edit-task/EditTaskModal";
 
 const TaskDetails = () => {
   const { taskId } = useParams<{ taskId: string }>(); 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isWarningModalOpen, setIsWarningModalOpen] = useState<boolean>(false);
   const [task, setTask] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -31,6 +33,10 @@ const TaskDetails = () => {
   const handleCloseWarningModal = (): void => {
     setIsWarningModalOpen(false);
   };
+
+  const handleCloseEditModal = () :void => {
+    setIsEditModalOpen(false);
+  }
 
   //  fetchTaskDetails function
   const fetchTaskDetails = useCallback(async () => {
@@ -72,7 +78,7 @@ const TaskDetails = () => {
         <h3>Task Details</h3>
         <div className="task-header-btns">
           <div className="task-points">{task?.points} Points</div>
-          <button className="edit-btn">
+          <button onClick={()=>setIsEditModalOpen(true)} className="edit-btn">
             <span className="edit-icon">
               <img src="/icons/edit-orange.svg" alt="" />
             </span>
@@ -169,6 +175,14 @@ const TaskDetails = () => {
       taskId={task?._id}
         isOpen={isWarningModalOpen}
         onClose={handleCloseWarningModal}
+      />
+      {/* Edit task modal */}
+      <EditTaskModal
+      taskId={task?._id}
+      isOpen={isEditModalOpen}
+      onClose={handleCloseEditModal}
+      prevcategory={task?.category}
+      prevdetails={task?.details}
       />
     </div>
   );
