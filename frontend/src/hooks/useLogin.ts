@@ -24,7 +24,6 @@ export function useLogin() {
         password,
       });
 
-      console.log(res.data.data);
       const response = res.data.data;
 
       if (res.data.success) {

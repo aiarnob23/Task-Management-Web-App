@@ -39,7 +39,6 @@ const Login = () => {
     }
   }, [success, error]);
 
-  console.log(success);
 
   return (
     <div className="login-container">

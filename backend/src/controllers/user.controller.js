@@ -68,7 +68,6 @@ const updateUserDetails = catchAsync(async (req, res) => {
   const payload = req.body;
   if (_id && payload) {
     const result = await userService.updateUserDetails(_id, payload);
-    console.log(_id, payload);
     if (result) {
       return sendResponse(res, {
         success: true,

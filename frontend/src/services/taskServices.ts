@@ -14,7 +14,6 @@ export const getUsersTaskLists = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(result);
     if (result?.data?.success) {
       return result.data.data;
     } else {
@@ -37,7 +36,6 @@ export const getTaskDetails = async (taskId: string) => {
     return (window.location.href = "/dashboard");
   }
   const res = await serverBaseUrl.get(`/task/details/${taskId}`);
-  console.log(res?.data?.success);
   if (res?.data?.success) {
     return res.data.data;
   } else {
@@ -47,8 +45,7 @@ export const getTaskDetails = async (taskId: string) => {
 
 //update task details
 export const updateTask = async (taskId: string, data: any) => {
-  const result = await serverBaseUrl.patch(`/task/update/${taskId}`, data);
-  console.log(result);
+   await serverBaseUrl.patch(`/task/update/${taskId}`, data);
 };
 
 //create new task

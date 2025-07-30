@@ -33,7 +33,7 @@
         font-size: 16px;
         font-style: normal;
         font-weight: 600;
-        line-height: 132%; 
+        line-height: 132%;
         letter-spacing: -0.32px;
         margin-right: 60px;
       }
@@ -273,7 +273,8 @@
               border-radius: 8px;
               background: #fff;
               border: 1px solid #e1e1e1;
-              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+                0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
               .dropdown-content {
                 padding: 8px;
@@ -296,10 +297,10 @@
                 }
 
                 &.selected {
-                  background-color: #f0f9ff;
-                  
+                  background-color: #e7fbf3;
+
                   .dropdown-label {
-                    color: var(--main, #10b981);
+                    color: #06110a;
                     font-weight: 500;
                   }
                 }
@@ -337,8 +338,8 @@
                     .checkmark-icon {
                       width: 10px;
                       height: 10px;
-                      color: #fff;
-                      stroke-width: 2.5;
+                      color: #000000;
+                      stroke-width: 4.5;
                     }
                   }
                 }
@@ -423,7 +424,7 @@
 
 .pending-color {
   color: #e343e6;
-  
+
   .svg circle {
     fill: #e343e6;
   }
@@ -431,7 +432,7 @@
 
 .inprogress-color {
   color: #dd9221;
-  
+
   .svg circle {
     fill: #dd9221;
   }
@@ -439,7 +440,7 @@
 
 .done-color {
   color: #21d789;
-  
+
   .svg circle {
     fill: #21d789;
   }
@@ -447,7 +448,7 @@
 
 .collaborative-color {
   color: #3b82f6;
-  
+
   .svg circle {
     fill: #3b82f6;
   }

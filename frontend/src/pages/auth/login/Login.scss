@@ -2,8 +2,8 @@
   min-height: 100dvh;
   display: flex;
   .iamge-div {
-    flex:1;
-    background: url('/images/auth/login-roadmap.jpg');
+    flex: 1;
+    background: url("/images/auth/login-roadmap.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -44,7 +44,7 @@
         flex-direction: column;
         width: 560px;
 
-        .hook-form-error{
+        .hook-form-error {
           color: red;
         }
 
@@ -75,13 +75,13 @@
           line-height: 164%;
         }
       }
-      .password-input-field{
+      .password-input-field {
         position: relative;
-        .eye-toggle{
-          color: #97A0AF;
-            position: absolute;
-            right: 32px;
-            top: 48px;
+        .eye-toggle {
+          color: #97a0af;
+          position: absolute;
+          right: 32px;
+          top: 48px;
         }
       }
       .remember-me-field {
@@ -101,7 +101,11 @@
           input[type="checkbox"] {
             width: 20px;
             height: 20px;
-            color: var(--gray-500);
+            accent-color: var(--main, #10b981);
+            &:checked {
+              background-color: var(--main, #10b981);
+              border-color: var(--main, #10b981);
+            }
           }
         }
       }
@@ -121,9 +125,7 @@
         text-transform: capitalize;
       }
       .login-btn:active {
-        transform: scale(
-          0.97
-        );
+        transform: scale(0.97);
       }
     }
     .sign-up-navigate {

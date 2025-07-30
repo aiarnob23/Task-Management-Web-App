@@ -5,7 +5,6 @@ dotenv.config();
 export const createToken = (
   jwtPayload,
 ) => {
-  console.log(jwtPayload);
   const payload = typeof jwtPayload === 'string' ? { data: jwtPayload } : jwtPayload;
   
   let token = jwt.sign(payload, process.env.JWT_SECRET, {

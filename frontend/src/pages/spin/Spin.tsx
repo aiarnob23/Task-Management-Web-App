@@ -116,10 +116,6 @@ const Spin = () => {
             ]}
             onStopSpinning={() => {
               setMustSpin(false);
-              console.log(
-                "Prize won:",
-                wheelData.length > 0 ? wheelData[prizeNumber].option : "No prize"
-              );
             }}
           />
         </div>

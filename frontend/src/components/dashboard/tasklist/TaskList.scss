@@ -98,7 +98,7 @@
               }
 
               &.selected {
-                background-color: #f0f9ff;
+                background-color: #E7FBF3;
 
                 .dropdown-label {
                   color: var(--text-heading);
@@ -127,8 +127,8 @@
                   transition: all 0.2s ease;
 
                   &:checked {
-                    background-color: var(--main, #10b981);
-                    border-color: var(--main, #10b981);
+                    background-color: var(--main);
+                    border-color: var(--main);
                   }
                 }
 
@@ -143,8 +143,8 @@
                   .checkmark-icon {
                     width: 10px;
                     height: 10px;
-                    color: #fff;
-                    stroke-width: 2.5;
+                    color: #000000;
+                    stroke-width: 4.5;
                   }
                 }
               }

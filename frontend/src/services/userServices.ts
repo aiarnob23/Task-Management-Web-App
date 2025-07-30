@@ -8,6 +8,5 @@ export const updateUserDetails = async(data:any)=>{
     if(!token && !id){
         window.location.href="/auth/login";
     }
-    const result = await serverBaseUrl.patch(`/user/update/${id}`, data);
-    console.log(result);
+    await serverBaseUrl.patch(`/user/update/${id}`, data);
 }
