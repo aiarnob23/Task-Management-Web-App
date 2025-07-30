@@ -56,6 +56,12 @@
         font-weight: 600;
         line-height: 164%;
         text-transform: capitalize;
+        border: none;
+        transition: all 0.2s ease;
+
+        &:hover {
+          opacity: 0.9;
+        }
       }
       .back-btn {
         cursor: pointer;
@@ -66,7 +72,7 @@
         align-items: center;
         gap: 10px;
         border-radius: 8px;
-        background: (#60e5ae);
+        background: #60e5ae;
         color: var(--text-heading);
         font-family: "Plus Jakarta Sans";
         font-size: 16px;
@@ -74,6 +80,12 @@
         font-weight: 600;
         line-height: 164%;
         text-transform: capitalize;
+        border: none;
+        transition: all 0.2s ease;
+
+        &:hover {
+          opacity: 0.9;
+        }
       }
     }
   }
@@ -212,24 +224,136 @@
           letter-spacing: -0.32px;
         }
         .status-change-dropdown {
-          select {
-            display: flex;
+          .dropdown-wrapper {
+            position: relative;
             width: 413px;
-            padding: 12px 22px;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            border-radius: 5px;
-            border: 1px solid #e1e1e1;
-            background: #fff;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12);
-            gap: 10px;
-            color: var(--gray-500);
-            font-family: "Plus Jakarta Sans";
-            font-size: 16px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 164%;
+
+            .dropdown-button {
+              display: flex;
+              width: 100%;
+              padding: 12px 22px;
+              justify-content: space-between;
+              align-items: center;
+              border-radius: 5px;
+              border: 1px solid #e1e1e1;
+              background: #fff;
+              box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+              cursor: pointer;
+              transition: all 0.2s ease;
+
+              &:hover {
+                border-color: #d1d5db;
+              }
+
+              .dropdown-text {
+                color: var(--gray-500);
+                font-family: "Plus Jakarta Sans";
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 164%;
+                text-align: left;
+              }
+
+              .dropdown-icon {
+                width: 20px;
+                height: 20px;
+                color: var(--gray-500);
+                flex-shrink: 0;
+              }
+            }
+
+            .dropdown-menu {
+              position: absolute;
+              top: 100%;
+              left: 0;
+              right: 0;
+              z-index: 1000;
+              margin-top: 4px;
+              border-radius: 8px;
+              background: #fff;
+              border: 1px solid #e1e1e1;
+              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+              .dropdown-content {
+                padding: 8px;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+              }
+
+              .dropdown-item {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 8px 12px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: background-color 0.2s ease;
+
+                &:hover {
+                  background-color: #f8f9fa;
+                }
+
+                &.selected {
+                  background-color: #f0f9ff;
+                  
+                  .dropdown-label {
+                    color: var(--main, #10b981);
+                    font-weight: 500;
+                  }
+                }
+
+                .checkbox-wrapper {
+                  position: relative;
+                  display: flex;
+                  align-items: center;
+                  flex-shrink: 0;
+
+                  .dropdown-checkbox {
+                    width: 16px;
+                    height: 16px;
+                    border: 2px solid #d1d5db;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    appearance: none;
+                    background: #fff;
+                    transition: all 0.2s ease;
+
+                    &:checked {
+                      background-color: var(--main, #10b981);
+                      border-color: var(--main, #10b981);
+                    }
+                  }
+
+                  .checkbox-checkmark {
+                    position: absolute;
+                    inset: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    pointer-events: none;
+
+                    .checkmark-icon {
+                      width: 10px;
+                      height: 10px;
+                      color: #fff;
+                      stroke-width: 2.5;
+                    }
+                  }
+                }
+
+                .dropdown-label {
+                  color: var(--text-heading);
+                  font-family: "Plus Jakarta Sans";
+                  font-size: 14px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: 18px;
+                  transition: all 0.2s ease;
+                }
+              }
+            }
           }
         }
       }
@@ -262,6 +386,12 @@
         font-weight: 600;
         line-height: 164%;
         text-transform: capitalize;
+        border: none;
+        transition: all 0.2s ease;
+
+        &:hover {
+          opacity: 0.9;
+        }
       }
       .submit-btn {
         cursor: pointer;
@@ -280,7 +410,45 @@
         font-weight: 600;
         line-height: 164%;
         text-transform: capitalize;
+        border: none;
+        transition: all 0.2s ease;
+
+        &:hover {
+          opacity: 0.9;
+        }
       }
     }
+  }
+}
+
+.pending-color {
+  color: #e343e6;
+  
+  .svg circle {
+    fill: #e343e6;
+  }
+}
+
+.inprogress-color {
+  color: #dd9221;
+  
+  .svg circle {
+    fill: #dd9221;
+  }
+}
+
+.done-color {
+  color: #21d789;
+  
+  .svg circle {
+    fill: #21d789;
+  }
+}
+
+.collaborative-color {
+  color: #3b82f6;
+  
+  .svg circle {
+    fill: #3b82f6;
   }
 }

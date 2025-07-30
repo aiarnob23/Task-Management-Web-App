@@ -1,4 +1,5 @@
-import { useEffect, useState, useCallback } from "react"; 
+import { useEffect, useState, useCallback, useRef } from "react"; 
+import { ChevronDown, ChevronUp, Check } from "lucide-react";
 import "./TaskDetails.scss";
 import CongratulationsModal from "../../components/modals/congrats/CongratulationsModal";
 import DeleteTaskModal from "../../components/modals/delete-task/DeleteTaskModal";
@@ -14,9 +15,20 @@ const TaskDetails = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [isWarningModalOpen, setIsWarningModalOpen] = useState<boolean>(false);
+  const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState<boolean>(false);
   const [task, setTask] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedStatus, setSelectedStatus] = useState<string>(""); 
+
+  const statusDropdownRef = useRef<any>(null);
+
+  const statusOptions = [
+    "All Task",
+    "Ongoing", 
+    "Pending",
+    "Collaborative Task",
+    "Done"
+  ];
 
   const handleTaskComplete = async() => {
     const points = 20;
@@ -27,6 +39,7 @@ const TaskDetails = () => {
   const handleDeleteTask = () => {
     setIsWarningModalOpen(true);
   };
+  
   const handleCloseModal = (): void => {
     setIsModalOpen(false);
   };
@@ -53,19 +66,41 @@ const TaskDetails = () => {
     }
   }, [taskId]); 
 
-
   useEffect(() => {
     fetchTaskDetails();
   }, [fetchTaskDetails]); 
 
-  // update task function
-  const handleChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newStatus = event.target.value;
-    setSelectedStatus(newStatus);
+  // dropdown close handle
+  useEffect(() => {
+    const handleClickOutside = (event: any) => {
+      if (
+        statusDropdownRef.current &&
+        !statusDropdownRef.current.contains(event.target)
+      ) {
+        setIsStatusDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // toggle dropdown
+  const toggleStatusDropdown = () => {
+    setIsStatusDropdownOpen(!isStatusDropdownOpen);
+  };
+
+  // handle status selection
+  const handleStatusSelect = async (status: string) => {
+    setSelectedStatus(status);
+    setIsStatusDropdownOpen(false);
 
     try {
-      if (task?._id) {
-        await updateTask(task._id, { status: newStatus });
+      if (task?._id && status !== "All Task") {
+        await updateTask(task._id, { status: status });
         await fetchTaskDetails();
       }
     } catch (error) {
@@ -121,8 +156,10 @@ const TaskDetails = () => {
                       ? "pending-color"
                       : task?.status === "Done"
                       ? "done-color"
-                      : task?.status === "InProgress"
+                      : task?.status === "InProgress" || task?.status === "Ongoing"
                       ? "inprogress-color"
+                      : task?.status === "Collaborative Task"
+                      ? "collaborative-color"
                       : ""
                   }`}
                 >
@@ -149,11 +186,48 @@ const TaskDetails = () => {
             <div className="change-status">
               <h3>Change Status</h3>
               <div className="status-change-dropdown">
-                <select value={selectedStatus} onChange={handleChange}>
-                  <option className="status-optons" value="InProgress">In Progress</option>
-                  <option className="status-option" value="Pending">Pending</option>
-                  <option className="status-option" value="Done">Done</option>
-                </select>
+                <div ref={statusDropdownRef} className="dropdown-wrapper">
+                  <button
+                    onClick={toggleStatusDropdown}
+                    className="dropdown-button"
+                  >
+                    <span className="dropdown-text">{selectedStatus}</span>
+                    {isStatusDropdownOpen ? (
+                      <ChevronUp className="dropdown-icon" />
+                    ) : (
+                      <ChevronDown className="dropdown-icon" />
+                    )}
+                  </button>
+
+                  {isStatusDropdownOpen && (
+                    <div className="dropdown-menu">
+                      <div className="dropdown-content">
+                        {statusOptions.map((status) => (
+                          <div
+                            key={status}
+                            className={`dropdown-item ${selectedStatus === status ? 'selected' : ''}`}
+                            onClick={() => handleStatusSelect(status)}
+                          >
+                            <div className="checkbox-wrapper">
+                              <input
+                                type="checkbox"
+                                className="dropdown-checkbox"
+                                checked={selectedStatus === status}
+                                onChange={() => {}}
+                              />
+                              {selectedStatus === status && (
+                                <div className="checkbox-checkmark">
+                                  <Check className="checkmark-icon" />
+                                </div>
+                              )}
+                            </div>
+                            <span className="dropdown-label">{status}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
