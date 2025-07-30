@@ -27,19 +27,19 @@ const createNewUserToDB = catchAsync(async (req, res) => {
       success: true,
       statusCode: 200,
       message: "User created successfully",
-      data: {result, token},
+      data: { result, token },
     });
   }
 });
 
 //user login verification
 const userLoginVerification = catchAsync(async (req, res) => {
-  const { email, password } = req.body; 
+  const { email, password } = req.body;
 
   if (!email || !password) {
     return sendResponse(res, {
       success: false,
-      statusCode: 400, 
+      statusCode: 400,
       message: "Email and password are required.",
       data: null,
     });
@@ -51,7 +51,7 @@ const userLoginVerification = catchAsync(async (req, res) => {
     return sendResponse(res, {
       success: false,
       statusCode: 401,
-      message: "Invalid credentials.", 
+      message: "Invalid credentials.",
       data: null,
     });
   }
@@ -61,29 +61,55 @@ const userLoginVerification = catchAsync(async (req, res) => {
   if (!isPasswordMatched) {
     return sendResponse(res, {
       success: false,
-      statusCode: 401, 
-      message: "Invalid credentials.", 
+      statusCode: 401,
+      message: "Invalid credentials.",
       data: null,
     });
   }
- 
+
   const token = createToken(email);
   sendResponse(res, {
     success: true,
-    statusCode: 200, 
+    statusCode: 200,
     message: "User logged in successfully!",
     data: {
       user: {
         id: userData._id,
         email: userData.email,
-        name:userData.name,
+        name: userData.name,
       },
-      token:token,
+      token: token,
     },
   });
+});
+
+//update user details
+const updateUserDetails = catchAsync(async (req, res) => {
+  const _id = req?.params?.id;
+  const payload = req.body;
+  if (_id && payload) {
+    const result = await userService.updateUserDetails(_id, payload);
+    console.log(_id, payload);
+    if (result) {
+      return sendResponse(res, {
+        success: true,
+        statusCode: 200,
+        message: "User details updated successfully",
+        data: result,
+      });
+    } else {
+      return sendResponse(res, {
+        success: false,
+        statusCode: 404,
+        message: "Request failed , Data not found",
+        data: result,
+      });
+    }
+  }
 });
 
 export const userController = {
   createNewUserToDB,
   userLoginVerification,
+  updateUserDetails,
 };

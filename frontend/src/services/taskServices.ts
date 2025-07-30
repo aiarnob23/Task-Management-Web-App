@@ -33,6 +33,12 @@ export const getTaskDetails = async (taskId: string) => {
   }
 };
 
+//update task details
+export const updateTask = async(taskId:string , data:any)=>{
+  const result = await serverBaseUrl.patch(`/task/update/${taskId}`, data);
+  console.log(result);
+}
+
 //create new task
 export const createNewTask = async (payload: any) => {
   const result = await serverBaseUrl.post("/task/create-new", payload);

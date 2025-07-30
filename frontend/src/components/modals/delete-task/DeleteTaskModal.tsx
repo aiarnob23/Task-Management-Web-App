@@ -6,11 +6,13 @@ interface DeleteTaskModalProps {
   isOpen: boolean;
   onClose: () => void;
   pointsEarned?: number;
+  taskId:any;
 }
 
 const DeleteTaskModal: React.FC<DeleteTaskModalProps> = ({
   isOpen,
   onClose,
+  taskId,
 }) => {
   if (!isOpen) {
     return null;
@@ -18,7 +20,7 @@ const DeleteTaskModal: React.FC<DeleteTaskModalProps> = ({
 
   // handle task deletion
   const handleTaskDelete = async () => {
-    const res = await deleteTask("688961c9d67c10c48820ed38");
+    const res = await deleteTask(taskId);
     if(res?.success){
       onClose();
       window.location.href="/dashboard";
