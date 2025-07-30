@@ -1,15 +1,16 @@
 import { useState, useEffect, useRef } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Check } from "lucide-react";
 import "./TaskList.scss";
 import AddTaskModal from "../../modals/add-task/AddTaskModal";
 import { getUsersTaskLists } from "../../../services/taskServices";
 import OrbitalSpinner from "../../ui/LoadingSpinner";
+import { formatTaskDate } from "../../../utils/dateFormat";
 
 const TaskList = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isStatusOpen, setIsStatusOpen] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState<any>([]);
-  const [selectedStatus, setSelectedStatus] = useState(["Pending"]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(["All Categories"]);
+  const [selectedStatus, setSelectedStatus] = useState<string>("All Task");
   const [tasks, setTasks] = useState<any>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -19,6 +20,7 @@ const TaskList = () => {
   };
 
   const categories = [
+    "All Categories",
     "Arts and Craft",
     "Nature",
     "Family",
@@ -55,11 +57,14 @@ const TaskList = () => {
     const handleClickOutside = (event: any) => {
       if (
         categoryDropdownRef.current &&
-        !categoryDropdownRef.current.contains(event.target) &&
+        !categoryDropdownRef.current.contains(event.target)
+      ) {
+        setIsCategoryOpen(false);
+      }
+      if (
         statusDropdownRef.current &&
         !statusDropdownRef.current.contains(event.target)
       ) {
-        setIsCategoryOpen(false);
         setIsStatusOpen(false);
       }
     };
@@ -70,6 +75,7 @@ const TaskList = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
   // dropdown handle
   const toggleCategoryDropdown = () => {
     setIsCategoryOpen(!isCategoryOpen);
@@ -81,81 +87,57 @@ const TaskList = () => {
     setIsCategoryOpen(false);
   };
 
-  const handleCategoryToggle = (category: string) => {
-    setSelectedCategories((prev: any) => {
-      if (prev.includes(category)) {
-        return prev.filter((c: any) => c !== category);
-      } else {
-        return [...prev, category];
+  const handleCategorySelect = (category: string) => {
+    if (category === "All Categories") {
+      setSelectedCategories(["All Categories"]);
+    } else {
+      let newSelection = [...selectedCategories];
+      
+      if (newSelection.includes("All Categories")) {
+        newSelection = newSelection.filter(c => c !== "All Categories");
       }
-    });
-  };
-
-  const handleStatusSelect = (status: any) => {
-    if (status === "All Task") {
-      setSelectedStatus([
-        "All Task",
-        "Ongoing",
-        "Pending",
-        "Collaborative Task",
-        "Done",
-      ]);
-    } else {
-      setSelectedStatus((prev) => {
-        if (prev.includes(status)) {
-          return prev.filter((s) => s !== status);
-        } else {
-          if (prev.includes("All Task")) {
-            return prev.filter((s) => s !== "All Task");
-          }
-          return [...prev, status];
+      
+      if (newSelection.includes(category)) {
+        newSelection = newSelection.filter(c => c !== category);
+        if (newSelection.length === 0) {
+          newSelection = ["All Categories"];
         }
-      });
+      } else {
+        newSelection.push(category);
+      }
+      
+      setSelectedCategories(newSelection);
     }
   };
 
-  const getCategoryDisplayText = () => {
-    if (selectedCategories.length === 0) {
-      return "Select Task Category";
-    } else if (selectedCategories.length === 1) {
-      return selectedCategories[0];
-    } else {
-      return `${selectedCategories[0]} , ${selectedCategories[1]}, ...`;
-    }
+  const handleStatusSelect = (status: string) => {
+    setSelectedStatus(status);
+    setIsStatusOpen(false);
   };
 
-  const getStatusDisplayText = () => {
-    if (selectedStatus.length === statusOptions.length) {
-      return "All Task";
-    } else if (selectedStatus.length === 0) {
-      return "Select Status";
-    } else if (selectedStatus.length === 1) {
-      return selectedStatus[0];
-    } else {
-      return `${selectedStatus[0]} , ${selectedStatus[1]}, ...`;
-    }
-  };
+  // Filter tasks 
+  const filteredTasks = tasks.filter((task: any) => {
+    const categoryMatch = selectedCategories.includes("All Categories") || selectedCategories.includes(task.category);
+    const statusMatch = selectedStatus === "All Task" || task.status === selectedStatus;
+    return categoryMatch && statusMatch;
+  });
 
   //handle task details view
-  const handleTaskDetailsView = (taskId:string)=>{
-    window.location.href=`/task-details/${taskId}`;
-  }
-
-  //handle format date
-  const formatTaskDate = (dateString: any) => {
-    const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    };
-    const formattedDate = date.toLocaleDateString("en-US", options);
-    const parts = formattedDate.split(", ");
-    return `${parts[0]}, ${parts[1]} - ${parts[2]}`;
+  const handleTaskDetailsView = (taskId: string) => {
+    window.location.href = `/task-details/${taskId}`;
   };
 
-  console.log(tasks);
+  // Get display text for category dropdown
+  const getCategoryDisplayText = () => {
+    if (selectedCategories.includes("All Categories")) {
+      return "Select Task Category";
+    }
+    if (selectedCategories.length === 1) {
+      return selectedCategories[0];
+    }
+    return `${selectedCategories.length} categories selected`;
+  };
+
   // ------------------------------------------------------------------------//
   return (
     <div className="task-list-container">
@@ -185,29 +167,19 @@ const TaskList = () => {
                     {categories.map((category) => (
                       <div
                         key={category}
-                        className="dropdown-item"
-                        onClick={() => handleCategoryToggle(category)}
+                        className={`dropdown-item ${selectedCategories.includes(category) ? 'selected' : ''}`}
+                        onClick={() => handleCategorySelect(category)}
                       >
                         <div className="checkbox-wrapper">
                           <input
                             type="checkbox"
-                            checked={selectedCategories.includes(category)}
-                            onChange={() => handleCategoryToggle(category)}
                             className="dropdown-checkbox"
+                            checked={selectedCategories.includes(category)}
+                            onChange={() => {}}
                           />
                           {selectedCategories.includes(category) && (
                             <div className="checkbox-checkmark">
-                              <svg
-                                className="checkmark-icon"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
+                              <Check className="checkmark-icon" />
                             </div>
                           )}
                         </div>
@@ -227,7 +199,7 @@ const TaskList = () => {
                 onClick={toggleStatusDropdown}
                 className="dropdown-button"
               >
-                <span className="dropdown-text">{getStatusDisplayText()}</span>
+                <span className="dropdown-text">{selectedStatus}</span>
                 {isStatusOpen ? (
                   <ChevronUp className="dropdown-icon" />
                 ) : (
@@ -241,29 +213,19 @@ const TaskList = () => {
                     {statusOptions.map((status) => (
                       <div
                         key={status}
-                        className="dropdown-item"
+                        className={`dropdown-item ${selectedStatus === status ? 'selected' : ''}`}
                         onClick={() => handleStatusSelect(status)}
                       >
                         <div className="checkbox-wrapper">
                           <input
                             type="checkbox"
-                            checked={selectedStatus.includes(status)}
-                            onChange={() => handleStatusSelect(status)}
                             className="dropdown-checkbox"
+                            checked={selectedStatus === status}
+                            onChange={() => {}}
                           />
-                          {selectedStatus.includes(status) && (
+                          {selectedStatus === status && (
                             <div className="checkbox-checkmark">
-                              <svg
-                                className="checkmark-icon"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                              >
-                                <path
-                                  fillRule="evenodd"
-                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                  clipRule="evenodd"
-                                />
-                              </svg>
+                              <Check className="checkmark-icon" />
                             </div>
                           )}
                         </div>
@@ -289,16 +251,16 @@ const TaskList = () => {
         <div className="loading-spinner-container min-h-[400px] flex justify-center items-center">
           <OrbitalSpinner />
         </div>
-      ) : !tasks?.length ? (
+      ) : !filteredTasks?.length ? (
         <div className="no-task-div">
           <img src="/svg/task/no-task-frame.svg" alt="" />
           <h3>No Task is Available yet, Please Add your New Task</h3>
         </div>
       ) : (
         <div className="task-card-div">
-          {tasks.map((task: any) => (
+          {filteredTasks.map((task: any) => (
             <div key={task?._id}>
-              <div onClick={()=>handleTaskDetailsView(task._id)} className="task-single-card">
+              <div onClick={() => handleTaskDetailsView(task._id)} className="task-single-card">
                 <div className="task-card-header">
                   <div className="icon-cat-div">
                     <div className="icon">
@@ -327,8 +289,10 @@ const TaskList = () => {
                         ? "pending-color"
                         : task.status === "Done"
                         ? "done-color"
-                        : task.status === "InProgress"
+                        : task.status === "InProgress" || task.status === "Ongoing"
                         ? "inprogress-color"
+                        : task.status === "Collaborative Task"
+                        ? "collaborative-color"
                         : ""
                     }`}
                   >

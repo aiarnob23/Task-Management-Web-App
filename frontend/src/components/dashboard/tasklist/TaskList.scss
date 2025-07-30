@@ -29,15 +29,19 @@
             display: flex;
             height: 50px;
             padding: 12px 16px 12px 16.5px;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 90.5px;
+            width: 300px;
             border-radius: 8px;
             border: 1px solid #e1e1e1;
             background: #fff;
             cursor: pointer;
             transition: all 0.2s ease;
             font-family: Poppins;
+
+            &:hover {
+              border-color: #d1d5db;
+            }
 
             .dropdown-text {
               color: var(--gray-500);
@@ -46,67 +50,85 @@
               font-style: normal;
               font-weight: 500;
               line-height: 164%;
+              text-align: left;
             }
 
             .dropdown-icon {
               display: flex;
               width: 20px;
               height: 20px;
-              padding: 5.833px 1.667px 5.066px 1.667px;
               justify-content: center;
               align-items: center;
+              color: var(--gray-500);
+              flex-shrink: 0;
             }
           }
 
           .dropdown-menu {
             position: absolute;
-            display: flex;
-            width: 219px;
-            padding: 6px 14px;
-            flex-direction: column;
-            align-items: flex-start;
-            flex-shrink: 0;
+            top: 100%;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            margin-top: 4px;
             border-radius: 8px;
             background: #fff;
-            box-shadow: 25px 23px 68px 0 rgba(10, 48, 61, 0.06);
+            border: 1px solid #e1e1e1;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+              0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
             .dropdown-content {
-              padding: 8px 10px;
+              padding: 8px;
               display: flex;
-              justify-content: center;
-              align-items: start;
               flex-direction: column;
-              color: rgba(6, 17, 10, 0.5);
-              font-family: "Plus Jakarta Sans";
-              font-size: 14px;
-              font-style: normal;
-              font-weight: 400;
-              line-height: 18px;
-              gap: 8px;
+              gap: 4px;
             }
 
             .dropdown-item {
               display: flex;
-              gap: 8px;
-              justify-content: center;
               align-items: center;
+              gap: 12px;
+              padding: 8px 12px;
+              border-radius: 6px;
+              cursor: pointer;
+              transition: background-color 0.2s ease;
+
+              &:hover {
+                background-color: #f8f9fa;
+              }
+
+              &.selected {
+                background-color: #f0f9ff;
+
+                .dropdown-label {
+                  color: var(--text-heading);
+                  font-family: "Plus Jakarta Sans";
+                  font-size: 14px;
+                  font-style: normal;
+                  font-weight: 400;
+                  line-height: 18px; 
+                }
+              }
 
               .checkbox-wrapper {
                 position: relative;
                 display: flex;
                 align-items: center;
+                flex-shrink: 0;
 
                 .dropdown-checkbox {
                   width: 16px;
                   height: 16px;
-                  accent-color: #10b981;
                   border: 2px solid #d1d5db;
-                  border-radius: 8px;
+                  border-radius: 4px;
                   cursor: pointer;
+                  appearance: none;
+                  background: #fff;
+                  transition: all 0.2s ease;
 
                   &:checked {
-                    background-color: var(--main);
-                    border: none;
+                    background-color: var(--main, #10b981);
+                    border-color: var(--main, #10b981);
                   }
                 }
 
@@ -119,9 +141,10 @@
                   pointer-events: none;
 
                   .checkmark-icon {
-                    width: 8px;
-                    height: 6px;
-                    color: #000;
+                    width: 10px;
+                    height: 10px;
+                    color: #fff;
+                    stroke-width: 2.5;
                   }
                 }
               }
@@ -133,6 +156,7 @@
                 font-style: normal;
                 font-weight: 400;
                 line-height: 18px;
+                transition: all 0.2s ease;
               }
             }
           }
@@ -157,8 +181,14 @@
         font-weight: 600;
         line-height: 164%;
         text-transform: capitalize;
+        border: none;
+        transition: all 0.2s ease;
 
-        &:active{
+        &:hover {
+          opacity: 0.9;
+        }
+
+        &:active {
           scale: 0.98;
           transform: translateY(1px);
         }
@@ -194,6 +224,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 35px;
+
     .task-single-card {
       cursor: pointer;
       width: 400px;
@@ -206,9 +237,11 @@
       border: 1px solid #e1e1e1;
       background: #fff;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+      transition: all 0.2s ease;
 
-      &:hover{
+      &:hover {
         border: 1px solid var(--main);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
       }
 
       .task-card-header {
@@ -219,10 +252,11 @@
         gap: 14px;
 
         .icon-cat-div {
-           display: flex;
-           align-items: start;
-           justify-content: center;
-           gap: 14px;
+          display: flex;
+          align-items: start;
+          justify-content: center;
+          gap: 14px;
+
           .icon {
             width: 43px;
             height: 43px;
@@ -233,6 +267,7 @@
             justify-content: center;
             align-items: center;
           }
+
           .task-category {
             color: var(--black);
             font-family: Poppins;
@@ -253,6 +288,7 @@
           font-weight: 400;
           line-height: 164%;
         }
+
         .trash {
           cursor: pointer;
           height: 60px;
@@ -261,12 +297,13 @@
           align-items: start;
           justify-content: end;
 
-          img{
+          img {
             height: 20px;
             width: 20px;
           }
         }
       }
+
       .task-card-footer {
         width: 100%;
         display: flex;
@@ -285,6 +322,7 @@
           font-weight: 400;
           line-height: 164%;
         }
+
         .task-status {
           display: flex;
           align-items: center;
@@ -307,10 +345,32 @@
 
 .pending-color {
   color: #e343e6;
+
+  .svg circle {
+    fill: #e343e6;
+  }
 }
+
 .inprogress-color {
   color: #dd9221;
+
+  .svg circle {
+    fill: #dd9221;
+  }
 }
+
 .done-color {
   color: #21d789;
+
+  .svg circle {
+    fill: #21d789;
+  }
+}
+
+.collaborative-color {
+  color: #3b82f6;
+
+  .svg circle {
+    fill: #3b82f6;
+  }
 }

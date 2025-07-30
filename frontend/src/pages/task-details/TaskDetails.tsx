@@ -7,6 +7,7 @@ import { getTaskDetails, updateTask } from "../../services/taskServices";
 import OrbitalSpinner from "../../components/ui/LoadingSpinner";
 import { updateUserDetails } from "../../services/userServices";
 import EditTaskModal from "../../components/modals/edit-task/EditTaskModal";
+import { formatTaskDate } from "../../utils/dateFormat";
 
 const TaskDetails = () => {
   const { taskId } = useParams<{ taskId: string }>(); 
@@ -109,7 +110,7 @@ const TaskDetails = () => {
                 <p>End Date</p>
                 <div className="calendar-date">
                   <img src="/icons/calendar-edit.svg" alt="" />
-                  <span>{task?.deadline}</span>
+                  <span>{formatTaskDate(task?.deadline)}</span>
                 </div>
               </div>
               <div className="border-vertical"></div>
