@@ -3,50 +3,86 @@ import "./DashboardHeader.scss";
 import { useEffect, useState } from "react";
 import LogoutButton from "../../ui/button/Logout";
 import { getFirstName } from "../../../utils/getFirstName";
+import { getUserPoints } from "../../../services/userServices";
 
 const DashboardHeader = () => {
   const [firstName, setFirstName] = useState<any>("");
   const location = useLocation();
   const [isLogOutDivActive, setIsLogOutDivActive] = useState<boolean>(false);
+  const [points, setPoints] = useState<any>(0);
 
   const navLinks = [
-    { name: "Task List", path: "/dashboard", icon: "" },
-    { name: "Spin", path: "/spin", icon: "" },
+    { name: "Task List", path: "/dashboard", icon: "/icons/clipboard-text.svg" },
+    { name: "Spin", path: "/spin", icon: "/icons/frame.svg" },
+    { name: "Friends", path: "/friends", icon: "/icons/people.svg" },
   ];
+  
   const toggleLogOutDiv = () => {
     setIsLogOutDivActive(!isLogOutDivActive);
   };
 
-useEffect(()=>{
-  const firstName = getFirstName();
+  useEffect(() => {
+    const firstName = getFirstName();
     setFirstName(firstName);
-},[])
+  }, []);
+
+  useEffect(()=>{
+    const getPoints = async()=>{
+      const points = await getUserPoints();
+      setPoints(points);
+    }
+    getPoints();
+  },[])
 
   return (
     <div className="dashboard-header-container">
       <header>
-        <div className="logo">
-          <img src="/icons/timer.svg" alt="" />
-          <h3 >Tasko</h3>
+        <div>
+          <div className="logo">
+            <img src="/icons/timer.svg" alt="" />
+            <h3>Tasko</h3>
+          </div>
         </div>
         <nav className="nav-menu">
-          {navLinks.map((link: any, index: number) => (
-            <Link
-              className={`nav-menu-item ${
-                location.pathname === link.path ? "active" : ""
-              }`}
-              to={link.path}
-              key={index}
-            >
-              {link.name}
-            </Link>
-          ))}
+          {navLinks.map((link: any, index: number) => {
+            if (link.name === "Friends" && points < 20) {
+              return null;
+            }
+            
+            return (
+              <Link
+                className={`nav-menu-item ${
+                  location.pathname === link.path ? "active" : ""
+                }`}
+                to={link.path}
+                key={index}
+              >
+               <div className="flex justify-center items-center gap-[10px]">
+                 <span><img src={link.icon} alt="" /></span>
+                {link.name}
+               </div>
+              </Link>
+            );
+          })}
         </nav>
         <div
           onClick={toggleLogOutDiv}
           className="user-icon flex justify-center items-center gap-[4px]"
         >
-          <div className="user-dp"><img src="/svg/user/user.svg" alt="" /></div>
+          <div className="notification-icon">
+            <img src="/svg/notification-bing.svg" alt="" />
+          </div>
+          {points >= 20 && (
+            <div className="badge">
+              <div className="badge-icon-div">
+                <img src="/svg/badge.svg" alt="" />
+              </div>
+              <div className="badge-level">Level 2</div>
+            </div>
+          )}
+          <div className="user-dp">
+            <img src="/svg/user/user.svg" alt="" />
+          </div>
           <h3>{firstName}</h3>
           <span>
             <svg
@@ -57,11 +93,11 @@ useEffect(()=>{
               fill="none"
             >
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M16.291 10.7074C16.9214 10.0776 16.4754 9 15.5842 9H8.41268C7.52199 9 7.07572 10.0767 7.70525 10.7068L11.2878 14.2926C11.6782 14.6833 12.3113 14.6836 12.702 14.2932L16.291 10.7074Z"
                 fill="#D9D9D9"
-                fill-opacity="0.4"
+                fillOpacity="0.4"
               />
             </svg>
           </span>

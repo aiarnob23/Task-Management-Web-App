@@ -66,6 +66,9 @@ const userLoginVerification = catchAsync(async (req, res) => {
 const updateUserDetails = catchAsync(async (req, res) => {
   const _id = req?.params?.id;
   const payload = req.body;
+  if(_id!==req.realUser.userId){
+    return next(new AppError("Access Denied", 401));
+  }
   if (_id && payload) {
     const result = await userService.updateUserDetails(_id, payload);
     if (result) {
@@ -81,8 +84,26 @@ const updateUserDetails = catchAsync(async (req, res) => {
   }
 });
 
+//get user's points
+const getUsersPoints = catchAsync(async(req,res,next)=>{
+  const _id = req?.params?.id;
+  if(!_id){
+    return next(new AppError("Failed to fetch data", 404));
+  }
+  const result = await userService.getUsersPoints(_id);
+  if(result){
+    sendResponse(res,{
+      success:true, 
+      statusCode:200,
+      message:"User points fetched successfully",
+      data:result
+    })
+  }
+})
+
 export const userController = {
   createNewUserToDB,
   userLoginVerification,
   updateUserDetails,
+  getUsersPoints,
 };

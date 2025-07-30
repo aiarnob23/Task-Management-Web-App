@@ -1,7 +1,6 @@
-
 import AppError from "../error/appError";
-import mongoose from "mongoose"; 
-import { envVariable } from "../config"; 
+import mongoose from "mongoose";
+import { envVariable } from "../config";
 
 const globalErrorHandler = (err, req, res, next) => {
   let statusCode = err.statusCode || 500;
@@ -9,29 +8,29 @@ const globalErrorHandler = (err, req, res, next) => {
   let errorName = err.name || "Error";
 
   if (err instanceof AppError && err.isOperational) {
-    //app defined error
+    //
   }
-  // Handle MongoDB duplicate key errors (code 11000)
+  // MongoDB duplicate key errors (code 11000)
   else if (err.code === 11000) {
-    statusCode = 409; 
+    statusCode = 409;
     errorName = "Conflict";
     const field = Object.keys(err.keyValue)[0];
     message = `Duplicate value for "${field}": "${err.keyValue[field]}"`;
   }
-  // Handle Mongoose validation errors
+  //Mongoose validation errors
   else if (err instanceof mongoose.Error.ValidationError) {
-    statusCode = 400; 
+    statusCode = 400;
     errorName = "ValidationError";
     const errors = Object.values(err.errors).map((e) => e.message);
     message = `Validation error: ${errors.join(", ")}`;
   }
-  // Handle Mongoose CastError
+  //Mongoose CastError
   else if (err instanceof mongoose.Error.CastError) {
-    statusCode = 400; 
+    statusCode = 400;
     errorName = "BadRequest";
     message = `Invalid ${err.path}: "${err.value}"`;
   }
-  // Handle all other unexpected errors
+  //other unexpected errors
   else {
     console.error("🚨 Unexpected Error:", err);
     if (envVariable.NODE_ENV === "production") {
@@ -39,7 +38,7 @@ const globalErrorHandler = (err, req, res, next) => {
     }
   }
 
-  //standardized JSON error response 
+  //standardized JSON error response
   res.status(statusCode).json({
     success: false,
     statusCode,

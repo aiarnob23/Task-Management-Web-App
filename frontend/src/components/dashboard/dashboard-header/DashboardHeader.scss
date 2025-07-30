@@ -59,6 +59,44 @@
       }
     }
     .user-icon {
+      .notification-icon{
+        background-color: rgba(255, 255, 255, 0.10);
+        margin-right: 28px;
+        padding: 6px;
+        border-radius: 50%;
+        img{
+          height: 22px;
+          width: 22px;
+        }
+      }
+      .badge {
+        margin-right: 28px;
+        display: flex;
+        padding: 2px 6px;
+        justify-content: center;
+        align-items: center;
+        gap: 18px;
+        border-radius: 114px;
+        background: rgba(182, 144, 240, 0.22);
+        backdrop-filter: blur(45.75px);
+
+        .badge-icon-div {
+          img{
+            height: 28px;
+            width: 28px;
+          }
+        }
+        .badge-level {
+          color: var(--60-background-white, #fff);
+          font-family: "Plus Jakarta Sans";
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 164%; 
+          text-transform: capitalize;
+          padding-right: 8px;
+        }
+      }
       .user-dp {
         border-radius: 50%;
         margin-right: 10px;

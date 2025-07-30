@@ -30,6 +30,9 @@ const TaskDetails = () => {
     setIsModalOpen(true);
     await updateUserDetails({ points: points });
     await updateTask(taskId as string, { status: "Done" });
+    setTimeout(() => {
+      window.location.reload();
+    }, 1500);
   };
 
   const handleDeleteTask = () => {

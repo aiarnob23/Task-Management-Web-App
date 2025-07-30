@@ -20,8 +20,15 @@ const updateUserDetails = async(_id, payload)=>{
     const result = await User.findByIdAndUpdate(_id, {points:points});
     return result;
 }
+
+//get user's points
+const getUsersPoints = async(_id)=>{
+    const result = await User.findById(_id, {points:1});
+    return result;
+}
 export const userService = {
     createNewUser,
     getUserPass,
     updateUserDetails,
+    getUsersPoints,
 }

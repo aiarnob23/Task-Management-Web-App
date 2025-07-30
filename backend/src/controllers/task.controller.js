@@ -6,9 +6,8 @@ import AppError from "../error/appError.js";
 //get user's task
 const getUsersTaskList = catchAsync(async (req, res) => {
   const userId = req?.params?.id;
-  console.log(req.realUser.userId===userId);
-  if(!req.realUser.userId===userId){
-     return next(new AppError("Access Denied", 401));
+  if (req.realUser.userId !== userId) {
+    return next(new AppError("Access Denied", 401));
   }
   if (userId) {
     const result = await taskService.getTaskList(userId);
@@ -51,7 +50,6 @@ const getTaskDetails = catchAsync(async (req, res) => {
   });
 });
 
-
 //create new task
 const createNewTask = catchAsync(async (req, res) => {
   const payload = req?.body;
@@ -78,7 +76,17 @@ const createNewTask = catchAsync(async (req, res) => {
 const updateTask = catchAsync(async (req, res) => {
   const payload = req?.body;
   const _id = req?.params?.id;
-  if (payload) {
+  const taskDetails = await taskService.findTaskById(_id);
+
+  if (!taskDetails) {
+    return next(new AppError("Data Not found", 404));
+  }
+
+  if (taskDetails.user !== req.realUser?.userId) {
+    return next(new AppError("Access Denied", 401));
+  }
+
+  if (payload && _id) {
     const result = await taskService.updateTask(_id, payload);
     if (result) {
       return sendResponse(res, {
@@ -100,6 +108,10 @@ const updateTask = catchAsync(async (req, res) => {
 //soft delete
 const deleteTask = catchAsync(async (req, res) => {
   const _id = req?.params?.id;
+  const taskDetails = await taskService.findTaskById(_id);
+  if (taskDetails.user !== req.realUser?.userId) {
+    return next(new AppError("Access Denied", 401));
+  }
   if (_id) {
     const result = await taskService.deleteTask(_id);
     if (result) {

@@ -45,7 +45,11 @@ export const getTaskDetails = async (taskId: string) => {
 
 //update task details
 export const updateTask = async (taskId: string, data: any) => {
-   await serverBaseUrl.patch(`/task/update/${taskId}`, data);
+  await serverBaseUrl.patch(`/task/update/${taskId}`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 //create new task
@@ -58,7 +62,11 @@ export const createNewTask = async (payload: any) => {
 
 //soft delete task
 export const deleteTask = async (id: string) => {
-  const result = await serverBaseUrl.patch(`/task/soft-delete/${id}`);
+  const result = await serverBaseUrl.patch(`/task/soft-delete/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   if (result?.data?.success) {
     return { success: true };
   } else {
