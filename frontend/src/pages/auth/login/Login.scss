@@ -170,3 +170,61 @@
     }
   }
 }
+
+// -----------------responsive design (mobile)------------------
+@media (max-width:576px){
+  .login-container {
+    max-width: 576px;
+    overflow: hidden;
+    padding: 20px;
+  .iamge-div {
+   display: none;
+  }
+  .login-content-div {
+    justify-content: center;
+    align-items: start;
+
+    h2 {
+      font-weight: 500;
+    }
+    .form-container {
+      .error-text {
+        color: rgb(223, 92, 92);
+        font-weight: 500;
+        font-size: 16px;
+      }
+      .input-field {
+        display: flex;
+        flex-direction: column;
+        width: 360px;
+
+        .hook-form-error {
+          color: red;
+        }
+
+        label {
+          font-weight: 500;
+        }
+        input {
+          display: flex;
+          width: 360px;
+        }
+      }
+
+      .login-btn {
+        display: inline-flex;
+        padding: 15px 160px;
+        font-weight: 500;
+      }
+    }
+    .sign-up-navigate {
+      .or-text-div {
+        .stroke {
+          width: 160px;
+        }
+      }
+    }
+  }
+}
+
+}

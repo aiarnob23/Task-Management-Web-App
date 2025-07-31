@@ -214,3 +214,12 @@
     }
   }
 }
+
+//-----------responsive design (mobile)-----------
+@media (max-width:576px){
+
+.add-task-modal-content {
+  padding: 34px 46px;
+}
+
+}

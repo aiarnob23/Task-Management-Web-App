@@ -17,7 +17,7 @@
   border-radius: 16px;
   text-align: center;
   position: relative;
-  max-width: 500px;
+  max-width: 580px;
   box-sizing: border-box;
 
   h2 {
@@ -77,5 +77,12 @@
       line-height: 24px;
       cursor: pointer;
     }
+  }
+}
+
+// -----------responsive design (mobile)-------------
+@media (max-width: 576px) {
+  .warning-modal-content {
+    padding: 34px 46px;
   }
 }

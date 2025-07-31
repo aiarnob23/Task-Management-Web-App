@@ -97,14 +97,19 @@
           padding-right: 8px;
         }
       }
-      .user-dp {
+      .logout-toggle-div{
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+         .user-dp {
         border-radius: 50%;
         margin-right: 10px;
         img {
           border-radius: 50%;
         }
       }
-      cursor: pointer;
       h3 {
         color: #fff;
         font-size: 18px;
@@ -112,6 +117,7 @@
         font-weight: 500;
         line-height: 164%;
         text-transform: capitalize;
+      }
       }
     }
   }
@@ -138,4 +144,55 @@
       letter-spacing: -0.8px;
     }
   }
+}
+
+
+// --------------responsive design (mobile)-----------------------
+@media (max-width:576px) {
+  .dashboard-header-container {
+  height: 700px;
+  padding: 20px;
+  max-width: 576px;
+  overflow: hidden;
+
+  header {
+    flex-direction: column;
+    margin-bottom: 52px;
+    align-items: center;
+    position: relative;
+
+    .logo {
+      margin-bottom: 32px;
+      font-size: 28px;
+      line-height: 162%;
+      letter-spacing: 0.58px;
+      img {
+        width: 42px;
+        height: 42px;
+        flex-shrink: 0;
+        padding: 8px;
+      }
+    }
+    .nav-menu {
+      flex-direction: column;
+      align-items: start;
+    }
+    .user-icon {
+      margin-top: 28px;
+    }
+  }
+  .welcome-message {
+    max-width:576px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h3 {
+      margin-top: 12px;
+      font-size: 30px;
+    }
+  }
+}
+
 }

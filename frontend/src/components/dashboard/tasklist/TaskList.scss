@@ -98,7 +98,7 @@
               }
 
               &.selected {
-                background-color: #E7FBF3;
+                background-color: #e7fbf3;
 
                 .dropdown-label {
                   color: var(--text-heading);
@@ -106,7 +106,7 @@
                   font-size: 14px;
                   font-style: normal;
                   font-weight: 400;
-                  line-height: 18px; 
+                  line-height: 18px;
                 }
               }
 
@@ -280,6 +280,7 @@
         }
 
         .task-details {
+          width: 100%;
           margin-top: 6px;
           color: var(--gray-500);
           font-family: Poppins;
@@ -337,6 +338,87 @@
             font-weight: 500;
             line-height: 164%;
           }
+        }
+      }
+    }
+  }
+}
+
+// -----------------responsive design (mobile) -----------------
+@media (max-width: 576px) {
+  .task-list-container {
+    max-width: 576px;
+    overflow: hidden;
+    .task-list-heading-div {
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+
+      .filter-div {
+        margin-top: 30px;
+        flex-direction: column;
+        align-items: center;
+        gap: 26px;
+      }
+    }
+
+    .no-task-div {
+      margin-top: 60px;
+
+      h3 {
+        font-size: 18px;
+      }
+    }
+
+    .task-card-div {
+      margin-top: 55px;
+      grid-template-columns: repeat(1, 1fr);
+      gap: 35px;
+
+
+      .task-single-card {
+        cursor: pointer;
+        width: 360px;
+        display: inline-flex;
+        padding: 10px 12px;
+        flex-direction: column;
+        .task-card-header {
+          flex-direction: column;
+          gap: 6px;
+
+          .icon-cat-div {
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: center;
+            gap: 14px;
+
+            .icon {
+              width: 36px;
+              height: 36px;
+            }
+
+            .task-category {
+              font-size: 16px;
+              font-weight: 500;
+            }
+          }
+
+          .task-details {
+            width: 90%;
+            overflow: scroll;
+          }
+
+          .trash {
+            display: none;
+          }
+        }
+
+        .task-card-footer {
+          flex-direction: column;
+          gap: 12px;
+          align-items: start;
+          justify-content: center;
         }
       }
     }

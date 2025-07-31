@@ -1,10 +1,10 @@
 .header-container {
   height: 174px;
-  background: url('/svg/header.svg');
+  background: url("/svg/header.svg");
   background-repeat: no-repeat;
   background-size: cover;
   padding-top: 30px;
-  
+
   header {
     max-width: 1320px;
     margin: auto;
@@ -26,7 +26,7 @@
       font-weight: 600;
       line-height: 132%;
       letter-spacing: -0.48px;
-          img {
+      img {
         width: 32px;
         height: 32px;
         flex-shrink: 0;
@@ -58,13 +58,13 @@
         }
       }
     }
-        .user-icon {
-      .notification-icon{
-        background-color: rgba(255, 255, 255, 0.10);
+    .user-icon {
+      .notification-icon {
+        background-color: rgba(255, 255, 255, 0.1);
         margin-right: 28px;
         padding: 6px;
         border-radius: 50%;
-        img{
+        img {
           height: 22px;
           width: 22px;
         }
@@ -81,7 +81,7 @@
         backdrop-filter: blur(45.75px);
 
         .badge-icon-div {
-          img{
+          img {
             height: 28px;
             width: 28px;
           }
@@ -92,26 +92,65 @@
           font-size: 14px;
           font-style: normal;
           font-weight: 500;
-          line-height: 164%; 
+          line-height: 164%;
           text-transform: capitalize;
           padding-right: 8px;
         }
       }
-      .user-dp {
-        border-radius: 50%;
-        margin-right: 10px;
-        img {
-          border-radius: 50%;
+      .logout-toggle-div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+
+        h3 {
+          color: #fff;
+          font-family: "Plus Jakarta Sans";
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 164%;
+          text-transform: capitalize;
         }
       }
-      cursor: pointer;
-      h3 {
-        color: #fff;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 164%;
-        text-transform: capitalize;
+    }
+  }
+}
+
+// ------------------responsive desig (mobile)-----------------
+@media (max-width: 576px) {
+  .header-container {
+    max-width: 576px;
+    overflow: hidden;
+    height: 650px;
+    padding: 20px;
+
+    header {
+      max-width: 576px;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 52px;
+      align-items: center;
+      z-index: 1000;
+
+      .logo {
+        margin-bottom: 30px;
+        font-size: 28px;
+        letter-spacing: 0.48px;
+        img {
+          width: 42px;
+          height: 42px;
+        }
+      }
+      .nav-menu {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 32px;
+      }
+      .user-icon {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
       }
     }
   }

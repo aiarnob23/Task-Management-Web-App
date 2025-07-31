@@ -109,7 +109,7 @@ const updateTask = catchAsync(async (req, res) => {
 const deleteTask = catchAsync(async (req, res) => {
   const _id = req?.params?.id;
   const taskDetails = await taskService.findTaskById(_id);
-  if (taskDetails.user !== req.realUser?.userId) {
+  if (taskDetails.user != req.realUser?.userId) {
     return next(new AppError("Access Denied", 401));
   }
   if (_id) {

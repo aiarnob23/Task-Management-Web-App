@@ -2,7 +2,7 @@ import { useState, useMemo, useRef, useEffect } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react"; 
 import "./Spin.scss";
 import { Wheel } from "react-custom-roulette";
-import { Link } from "react-router";
+import { Link } from "react-router-dom"; 
 
 const allCategoriesData = [
   { option: "Sport" },
@@ -75,10 +75,8 @@ const Spin = () => {
       return "Select Task Category";
     } else if (selectedCategories.length === allCategoriesData.length) {
       return "All Categories";
-    } else if (selectedCategories.length === 1) {
-      return selectedCategories[0];
     } else {
-      return `${selectedCategories[0]}, ${selectedCategories[1]}, ...`;
+      return selectedCategories[0];
     }
   };
 
@@ -95,14 +93,7 @@ const Spin = () => {
             data={wheelData}
             outerBorderColor={"#CD3916"}
             outerBorderWidth={12}
-            radiusLineColor={[
-              "#FF7F0E",
-              "#2CA02C",
-              "#FFBB78",
-              "#2CA02C",
-              "#98DF8A",
-              "#98DF8A",
-            ]}
+            radiusLineColor={"#FF7F0E"} 
             radiusLineWidth={1}
             fontSize={15}
             textColors={["#1F1F1F"]}

@@ -2,7 +2,7 @@
   min-height: 100dvh;
   display: flex;
   .iamge-div {
-    background: url('/images/auth/signup.jpg');
+    background: url("/images/auth/signup.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -35,7 +35,7 @@
       margin-bottom: 33px;
     }
     .form-container {
-      .error-message{
+      .error-message {
         color: rgb(224, 69, 69);
         font-weight: 500;
         font-size: 16px;
@@ -73,13 +73,13 @@
           line-height: 164%;
         }
       }
-      .password-input-field{
-         position: relative;
-        .eye-toggle{
-          color: #97A0AF;
-            position: absolute;
-            right: 32px;
-            top: 48px;
+      .password-input-field {
+        position: relative;
+        .eye-toggle {
+          color: #97a0af;
+          position: absolute;
+          right: 32px;
+          top: 48px;
         }
       }
       .remember-me-field {
@@ -120,7 +120,7 @@
         text-transform: capitalize;
         cursor: pointer;
       }
-      .signup-btn:active{
+      .signup-btn:active {
         scale: 0.98;
       }
     }
@@ -161,6 +161,55 @@
           font-style: normal;
           font-weight: 700;
           line-height: 164%;
+        }
+      }
+    }
+  }
+}
+
+// ------------responsive design (mobile) ------------------------
+@media (max-width: 576px) {
+  .signup-container {
+    padding: 20px;
+    max-width: 576px;
+    overflow: hidden;
+    min-height: 100dvh;
+    display: flex;
+    .iamge-div {
+      display: none;
+    }
+    .signup-content-div {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: start;
+
+      .form-container {
+        .input-field {
+          display: flex;
+          flex-direction: column;
+          width: 360px;
+
+          label {
+            font-weight: 500;;
+          }
+          input {
+            width: 360px;
+          }
+        }
+
+        .signup-btn {
+          padding: 15px 150px;
+          font-weight: 500;
+        }
+      }
+      .login-navigate {
+        padding-bottom: 40px;
+        .or-text-div {
+          .stroke {
+            width: 160px;
+          }
         }
       }
     }

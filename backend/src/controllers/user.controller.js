@@ -27,7 +27,7 @@ const createNewUserToDB = catchAsync(async (req, res , next) => {
 });
 
 //user login verification
-const userLoginVerification = catchAsync(async (req, res) => {
+const userLoginVerification = catchAsync(async (req, res , next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -63,7 +63,7 @@ const userLoginVerification = catchAsync(async (req, res) => {
 });
 
 //update user details
-const updateUserDetails = catchAsync(async (req, res) => {
+const updateUserDetails = catchAsync(async (req, res,next) => {
   const _id = req?.params?.id;
   const payload = req.body;
   if(_id!==req.realUser.userId){
