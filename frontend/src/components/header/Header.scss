@@ -130,7 +130,7 @@
       flex-direction: column;
       justify-content: center;
       margin-bottom: 52px;
-      align-items: center;
+      align-items: start;
       z-index: 1000;
 
       .logo {
@@ -145,11 +145,13 @@
       .nav-menu {
         display: flex;
         flex-direction: column;
+        align-items: start;
         margin-bottom: 32px;
       }
       .user-icon {
         display: flex;
         flex-direction: column;
+        align-items: start;
         gap: 24px;
       }
     }

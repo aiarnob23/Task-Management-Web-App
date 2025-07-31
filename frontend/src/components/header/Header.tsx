@@ -253,7 +253,7 @@ const Header = () => {
           <div
             ref={logoutDropdownRef}
             hidden={!isLogOutDivActive}
-            className="absolute top-[500px] md:top-[70px] z-30 md:right-40 logout-dropdown"
+            className="absolute top-[230px] left-[170px] md:top-[70px] z-30 md:right-40 logout-dropdown"
           >
             <LogoutButton />
           </div>
