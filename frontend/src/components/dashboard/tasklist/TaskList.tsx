@@ -123,14 +123,14 @@ const TaskList = () => {
   };
 
   // Filter tasks
-  const filteredTasks = tasks?.filter((task: any) => {
+  const filteredTasks = Array.isArray(tasks) ? tasks.filter((task: any) => {
     const categoryMatch =
       selectedCategories.includes("All Categories") ||
       selectedCategories.includes(task.category);
     const statusMatch =
       selectedStatus === "All Task" || task.status === selectedStatus;
     return categoryMatch && statusMatch;
-  });
+  }) : [];
 
   //handle task details view
   const handleTaskDetailsView = (taskId: string) => {
