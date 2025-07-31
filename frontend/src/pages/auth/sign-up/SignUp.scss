@@ -18,6 +18,7 @@
 
     h2 {
       color: var(--text-heading);
+      font-family: Poppins;
       font-size: 40px;
       font-style: normal;
       font-weight: 600;
@@ -28,6 +29,7 @@
     p {
       color: var(--gray-500);
       text-align: center;
+      font-family: Poppins;
       font-size: 16px;
       font-style: normal;
       font-weight: 500;
@@ -51,6 +53,7 @@
           font-size: 16px;
           font-style: normal;
           font-weight: 600;
+          font-family: Poppins;
           line-height: 132%;
           letter-spacing: -0.32px;
           margin-bottom: 12px;
@@ -60,6 +63,7 @@
           width: 558px;
           height: 52px;
           padding: 11px 15px;
+          font-family: "Plus Jakarta Sans";
           align-items: center;
           gap: 10px;
           border-radius: 5px;
@@ -112,6 +116,7 @@
         gap: 10px;
         border-radius: 8px;
         background: var(--main);
+        font-family: "Plus Jakarta Sans";
         color: #1f1f1f;
         font-size: 18px;
         font-style: normal;
