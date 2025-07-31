@@ -17,28 +17,28 @@ This is a **task management web application**, specifically created to **create,
 
 ### Frontend
 
-- **React.js:**
-- **TypeScript:**
-- **React Router DOM:**
-- **React Hook Form:**
-- **React Datepicker:**
-- **`lucide-react`:**
-- **SCSS (Sass):**
-- **Tailwind CSS:**
-- **`js-cookie`:**
-- **`axios`:**
+- **React.js**
+- **TypeScript**
+- **React Router DOM**
+- **React Hook Form**
+- **React Datepicker**
+- **`lucide-react`**
+- **SCSS (Sass)**
+- **Tailwind CSS**
+- **`js-cookie`**
+- **`axios`**
 - **Context API:**
 
 ### Backend
 
-- **Node.js:**
-- **Express.js:**
-- **MongoDB:**
-- **Mongoose:**
-- **`bcryptjs`:**
-- **`jsonwebtoken`:** .
-- **`cors`:**
-- **`dotenv`:**
+- **Node.js**
+- **Express.js**
+- **MongoDB**
+- **Mongoose**
+- **`bcryptjs`**
+- **`jsonwebtoken`** .
+- **`cors`**
+- **`dotenv`**
 
 ---
 
