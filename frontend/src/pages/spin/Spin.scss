@@ -232,3 +232,186 @@
     }
   }
 }
+
+
+// -------------responsive (mobile)---------------------------
+@media (max-width:576px){
+  .spin-container {
+    padding-bottom: 320px;
+  max-width: 576px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+
+  .left-div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .middle-div {
+    width: 100%;
+
+    .spin-buttons {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
+  .right-div {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    h4 {
+      color: var(--text-heading);
+      font-family: Poppins;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 132%;
+      letter-spacing: -0.32px;
+    }
+
+    .category-selection {
+      margin-top: 20px; 
+      .dropdown-wrapper {
+        position: relative;
+        width: 260px;
+
+        .dropdown-button {
+          width: 100%;
+          display: flex;
+          padding: 12px 22px;
+          justify-content: space-between;
+          align-items: center;
+          border-radius: 5px;
+          border: 1px solid #e1e1e1;
+          background: #fff;
+          box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover {
+            border-color: #d1d5db;
+          }
+
+          .dropdown-text {
+            color: var(--gray-500);
+            font-family: "Plus Jakarta Sans";
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 164%;
+            text-align: left;
+          }
+
+          .dropdown-icon {
+            width: 20px;
+            height: 20px;
+            color: var(--gray-500);
+            flex-shrink: 0;
+          }
+        }
+
+        .dropdown-menu {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          z-index: 1000;
+          margin-top: 4px;
+          border-radius: 8px;
+          background: #fff;
+          border: 1px solid #e1e1e1;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+          .dropdown-content {
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+          }
+
+          .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+
+            &:hover {
+              background-color: #f8f9fa;
+            }
+
+            &.selected {
+              background-color: #e7fbf3;
+
+              .dropdown-label {
+                color: #06110a;
+                font-weight: 500;
+              }
+            }
+
+            .checkbox-wrapper {
+              position: relative;
+              display: flex;
+              align-items: center;
+              flex-shrink: 0;
+
+              .dropdown-checkbox {
+                width: 16px;
+                height: 16px;
+                border: 2px solid #d1d5db;
+                border-radius: 4px;
+                cursor: pointer;
+                appearance: none;
+                background: #fff;
+                transition: all 0.2s ease;
+
+                &:checked {
+                  background-color: var(--main, #10b981);
+                  border-color: var(--main, #10b981);
+                }
+              }
+
+              .checkbox-checkmark {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                pointer-events: none;
+
+                .checkmark-icon {
+                  width: 10px;
+                  height: 10px;
+                  color: #000000;
+                  stroke-width: 4.5;
+                }
+              }
+            }
+
+            .dropdown-label {
+              color: var(--text-heading);
+              font-family: "Plus Jakarta Sans";
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 400;
+              line-height: 18px;
+              transition: all 0.2s ease;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+}

@@ -3,7 +3,7 @@
   top: -70px;
   max-width: 1320px;
   margin: auto;
-  padding: 30px;
+  padding: 40px;
   border-radius: 15px;
   background: #fff;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12),
@@ -423,140 +423,145 @@
 }
 
 // -----------------responsive design (mobile) ----------------------
-@media (max-width:576px){
+@media (max-width: 576px) {
   .task-details-container {
-  max-width: 576px;
-  overflow: hidden;
-  margin: auto;
-  padding: 20px;
+    max-width: 576px;
+    overflow: hidden;
+    margin: auto;
+    padding: 20px;
 
-  .task-details-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    .task-header-btns {
-       margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 12px;
-      .task-points {
-        color: #c716f3;
-        font-family: Poppins;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: 132%;
-        letter-spacing: -0.32px;
-        margin-right: 10px;
-      }
-      .edit-btn {
-        cursor: pointer;
-       flex-direction: column;
-        gap: 14px;
-        padding: 5px 12px;
-        align-items: center;
-        border-radius: 6px;
-        font-size: 16px;
-        font-style: normal;
-        font-weight: 500;
-
-      }
-      .back-btn {
-        cursor: pointer;
-        width: 126px;
-        padding: 6px 12px;
-        border-radius: 6px;
-      }
-    }
-  }
-  .border-bottom {
-    width: 360px;
-  }
-  .task-details-data {
-    display: flex;
-    flex-direction: column;
-    .icon {
-      width: 60px;
-      height: 60px;
-      img {
-        height: 36px;
-        width: 36px;
-      }
-    }
-    .details {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: start;
-      gap: 62px;
-
-      .cat-details {
-        h3 {
-          font-size: 26.8px;
-          font-weight: 500;
-        }
-      }
-      .timeline-status {
-        display: flex;
-        gap: 32px;
-        flex-direction: column;;
-
-        .left-div {
-          .calendar-date {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            align-items: start;
-          }
-        }
-
-        .right-div {
-          display: flex;
-          gap: 18px;
-          .task-status {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 18px;
-            .status-text {
-              font-size: 28.228px;
-            }
-          }
-        }
-
-        .border-vertical {
-        display: none;
-        }
-      }
-      .change-status {
-        .status-change-dropdown {
-          .dropdown-wrapper {
-            position: relative;
-            width: 360px;
-          }
-        }
-      }
-    }
-  }
-  .task-details-footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .task-details-footer-btns {
-      padding-bottom: 40px;
+    .task-details-header {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       gap: 20px;
+
+      .task-header-btns {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        .task-points {
+          display: none;
+        }
+        .edit-btn {
+          cursor: pointer;
+          width: 150px;
+          gap: 14px;
+          padding: 5px 12px;
+          align-items: center;
+          border-radius: 6px;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 500;
+        }
+        .back-btn {
+          cursor: pointer;
+          width: 150px;
+          padding: 6px 12px;
+          border-radius: 6px;
+        }
+      }
+    }
+    .border-bottom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+    .task-details-data {
+      display: flex;
+      flex-direction: column;
+      .icon {
+        width: 60px;
+        height: 60px;
+        img {
+          height: 36px;
+          width: 36px;
+        }
+      }
+      .details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+        gap: 18px;
+
+        .cat-details {
+          h3 {
+            font-size: 26.8px;
+            font-weight: 500;
+          }
+        }
+        .timeline-status {
+          display: flex;
+          gap: 32px;
+          flex-direction: column;
+
+          .left-div {
+            .calendar-date {
+              display: flex;
+              flex-direction: column;
+              gap: 14px;
+              align-items: start;
+            }
+          }
+
+          .right-div {
+            width: 100%;
+            display: flex;
+            gap: 18px;
+            .task-status {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 18px;
+              .status-text {
+                font-size: 28.228px;
+              }
+            }
+          }
+
+          .border-vertical {
+            display: none;
+          }
+        }
+        .change-status {
+          .status-change-dropdown {
+            .dropdown-wrapper {
+              position: relative;
+              width: 360px;
+            }
+          }
+        }
+      }
+    }
+    .task-details-footer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .task-details-footer-btns {
+        width: 100%;
+        padding-bottom: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        .dlt-btn{
+          width: 100%;
+        }
+         .submit-btn {
+        cursor: pointer;
+        width: 100%;
+         }
+      }
     }
   }
-}
-
 }
 
 .pending-color {

@@ -357,8 +357,12 @@
       .filter-div {
         margin-top: 30px;
         flex-direction: column;
-        align-items: center;
+        align-items: start;
         gap: 26px;
+
+        .add-task-button{
+          width: 300px;
+        }
       }
     }
 
