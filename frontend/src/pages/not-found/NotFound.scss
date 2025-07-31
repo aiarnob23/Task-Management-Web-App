@@ -49,3 +49,37 @@
     }
   }
 }
+
+// ----------------responsive design for mobile --------------------
+@media (max-width:576px){
+  .not-found-container {
+  min-height: 100dvh;
+  background-color: #fafafa;
+  position: relative;
+
+  .not-found-bg {
+    display: none;
+  }
+  .not-found-content-container {
+    padding: 10px;
+    position: relative;
+    background-color: #ffffff;
+    max-width: 576px;
+    margin: auto;
+    top: 80px;
+    left: 0;
+    right: 0;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 87px;
+    justify-content: center;
+    align-items: center;
+
+    .not-found-action-button {
+      width: 360px;
+    }
+  }
+}
+
+}
