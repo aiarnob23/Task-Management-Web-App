@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import "./Header.scss";
-import { useEffect, useState, useRef } from "react"; 
+import { useEffect, useState, useRef } from "react";
 import { getFirstName } from "../../utils/getFirstName";
 import LogoutButton from "../ui/button/Logout";
 import { getUserPoints } from "../../services/userServices";
@@ -92,7 +92,7 @@ const Header = () => {
     },
     {
       name: "Spin",
-      path: "/spin",
+      path: "/main/spin",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +114,7 @@ const Header = () => {
     },
     {
       name: "Friends",
-      path: "/friends",
+      path: "/main/friends",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -206,9 +206,11 @@ const Header = () => {
           })}
         </nav>
         <div className="flex justify-center items-center user-icon">
-          <div className="notification-icon  cursor-pointer">
-            <img src="/svg/notification-bing.svg" alt="" />
-          </div>
+          {points >= 20 && (
+            <div className="notification-icon  cursor-pointer">
+              <img src="/svg/notification-bing.svg" alt="" />
+            </div>
+          )}
           {points >= 20 && (
             <div className="badge">
               <div className="badge-icon-div">
@@ -217,7 +219,10 @@ const Header = () => {
               <div className="badge-level">Level 2</div>
             </div>
           )}
-          <div onClick={toggleLogOutDiv} className="logout-toggle-div cursor-pointer">
+          <div
+            onClick={toggleLogOutDiv}
+            className="logout-toggle-div cursor-pointer"
+          >
             <div className="user-dp">
               <img
                 className="rounded-[50%] mr-[11px]"

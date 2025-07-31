@@ -9,7 +9,9 @@ import { formatTaskDate } from "../../../utils/dateFormat";
 const TaskList = () => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isStatusOpen, setIsStatusOpen] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>(["All Categories"]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([
+    "All Categories",
+  ]);
   const [selectedStatus, setSelectedStatus] = useState<string>("All Task");
   const [tasks, setTasks] = useState<any>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -41,9 +43,14 @@ const TaskList = () => {
   useEffect(() => {
     setLoading(true);
     const getTasks = async () => {
-      const res = await getUsersTaskLists();
-      setTasks(res);
-      setLoading(false);
+      try {
+        const res = await getUsersTaskLists();
+        setTasks(res);
+      } catch (error) {
+        console.error("Failed to fetch tasks:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     getTasks();
@@ -92,20 +99,20 @@ const TaskList = () => {
       setSelectedCategories(["All Categories"]);
     } else {
       let newSelection = [...selectedCategories];
-      
+
       if (newSelection.includes("All Categories")) {
-        newSelection = newSelection.filter(c => c !== "All Categories");
+        newSelection = newSelection.filter((c) => c !== "All Categories");
       }
-      
+
       if (newSelection.includes(category)) {
-        newSelection = newSelection.filter(c => c !== category);
+        newSelection = newSelection.filter((c) => c !== category);
         if (newSelection.length === 0) {
           newSelection = ["All Categories"];
         }
       } else {
         newSelection.push(category);
       }
-      
+
       setSelectedCategories(newSelection);
     }
   };
@@ -115,16 +122,19 @@ const TaskList = () => {
     setIsStatusOpen(false);
   };
 
-  // Filter tasks 
+  // Filter tasks
   const filteredTasks = tasks?.filter((task: any) => {
-    const categoryMatch = selectedCategories.includes("All Categories") || selectedCategories.includes(task.category);
-    const statusMatch = selectedStatus === "All Task" || task.status === selectedStatus;
+    const categoryMatch =
+      selectedCategories.includes("All Categories") ||
+      selectedCategories.includes(task.category);
+    const statusMatch =
+      selectedStatus === "All Task" || task.status === selectedStatus;
     return categoryMatch && statusMatch;
   });
 
   //handle task details view
   const handleTaskDetailsView = (taskId: string) => {
-    window.location.href = `/task-details/${taskId}`;
+    window.location.href = `/main/task-details/${taskId}`;
   };
 
   // Get display text for category dropdown
@@ -167,7 +177,11 @@ const TaskList = () => {
                     {categories.map((category) => (
                       <div
                         key={category}
-                        className={`dropdown-item ${selectedCategories.includes(category) ? 'selected' : ''}`}
+                        className={`dropdown-item ${
+                          selectedCategories.includes(category)
+                            ? "selected"
+                            : ""
+                        }`}
                         onClick={() => handleCategorySelect(category)}
                       >
                         <div className="checkbox-wrapper">
@@ -213,7 +227,9 @@ const TaskList = () => {
                     {statusOptions.map((status) => (
                       <div
                         key={status}
-                        className={`dropdown-item ${selectedStatus === status ? 'selected' : ''}`}
+                        className={`dropdown-item ${
+                          selectedStatus === status ? "selected" : ""
+                        }`}
                         onClick={() => handleStatusSelect(status)}
                       >
                         <div className="checkbox-wrapper">
@@ -242,7 +258,10 @@ const TaskList = () => {
             onClick={() => setIsModalOpen(true)}
             className="add-task-button"
           >
-          <span><img src="/icons/paper-plus.svg" alt="" /></span> <span> Add New Task</span>
+            <span>
+              <img src="/icons/paper-plus.svg" alt="" />
+            </span>{" "}
+            <span> Add New Task</span>
           </button>
         </div>
       </div>
@@ -260,7 +279,10 @@ const TaskList = () => {
         <div className="task-card-div">
           {filteredTasks.map((task: any) => (
             <div key={task?._id}>
-              <div onClick={() => handleTaskDetailsView(task._id)} className="task-single-card">
+              <div
+                onClick={() => handleTaskDetailsView(task._id)}
+                className="task-single-card"
+              >
                 <div className="task-card-header">
                   <div className="icon-cat-div">
                     <div className="icon">
@@ -289,7 +311,8 @@ const TaskList = () => {
                         ? "pending-color"
                         : task.status === "Done"
                         ? "done-color"
-                        : task.status === "InProgress" || task.status === "Ongoing"
+                        : task.status === "InProgress" ||
+                          task.status === "Ongoing"
                         ? "inprogress-color"
                         : task.status === "Collaborative Task"
                         ? "collaborative-color"

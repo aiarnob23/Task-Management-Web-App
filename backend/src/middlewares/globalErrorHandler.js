@@ -1,6 +1,5 @@
-import AppError from "../error/appError";
+import AppError from "../error/appError.js";
 import mongoose from "mongoose";
-import { envVariable } from "../config";
 
 const globalErrorHandler = (err, req, res, next) => {
   let statusCode = err.statusCode || 500;
@@ -33,9 +32,7 @@ const globalErrorHandler = (err, req, res, next) => {
   //other unexpected errors
   else {
     console.error("🚨 Unexpected Error:", err);
-    if (envVariable.NODE_ENV === "production") {
       message = "Internal Server Error";
-    }
   }
 
   //standardized JSON error response
@@ -44,7 +41,7 @@ const globalErrorHandler = (err, req, res, next) => {
     statusCode,
     error: errorName,
     message,
-    stack: envVariable.NODE_ENV === "development" ? err.stack : undefined,
+    stack: err.stack ,
   });
 };
 

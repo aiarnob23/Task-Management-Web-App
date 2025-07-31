@@ -3,6 +3,7 @@ import express from "express";
 import { userRoutes } from "./routes/user.routes.js";
 import { taskRoutes } from "./routes/task.routes.js";
 import helmet from "helmet";
+import globalErrorHandler from "./middlewares/globalErrorHandler.js";
 
 //cors and middlewares
 const app = express();
@@ -37,5 +38,7 @@ app.use((req, res, next) => {
     },
   });
 });
+
+app.use(globalErrorHandler);
 
 export default app;

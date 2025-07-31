@@ -62,7 +62,7 @@ const DashboardHeader = () => {
     },
     {
       name: "Spin",
-      path: "/spin",
+      path: "/main/spin",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +84,7 @@ const DashboardHeader = () => {
     },
     {
       name: "Friends",
-      path: "/friends",
+      path: "/main/friends",
       icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -205,9 +205,11 @@ const DashboardHeader = () => {
           })}
         </nav>
         <div className="user-icon flex justify-center items-center gap-[4px]">
-          <div className="notification-icon cursor-pointer">
-            <img src="/svg/notification-bing.svg" alt="" />
-          </div>
+          {points >= 20 && (
+            <div className="notification-icon cursor-pointer">
+              <img src="/svg/notification-bing.svg" alt="" />
+            </div>
+          )}
           {points >= 20 && (
             <div className="badge">
               <div className="badge-icon-div">

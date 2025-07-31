@@ -38,14 +38,14 @@ export function useLogin() {
         setUser(userId);
       } else {
         setSuccess(false);
+        console.log(res);
         setError(res.data.message);
       }
     } catch (err: any) {
-      if (err.response?.data?.message) {
-        setError(err.response.data.message);
-      } else if (err.message) {
-        setError(err.message);
-      } else {
+      console.log(err.response.status==401);
+      if (err.response?.status==401) {
+        setError("Invalid Credentials");
+      }  else {
         setError("An unknown error occurred during sign in.");
       }
     } finally {
